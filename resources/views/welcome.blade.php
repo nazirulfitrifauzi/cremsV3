@@ -90,8 +90,12 @@
                                 class="ml-8 font-medium text-gray-500 hover:text-gray-900 focus:outline-none focus:text-gray-900 transition duration-150 ease-in-out">Clients</a>
                             <a href="#contact"
                                 class="ml-8 font-medium text-gray-500 hover:text-gray-900 focus:outline-none focus:text-gray-900 transition duration-150 ease-in-out">Contacts</a>
-                            <a href="{{ route('login') }}"
-                                class="ml-8 font-medium text-indigo-600 hover:text-indigo-900 focus:outline-none focus:text-indigo-700 transition duration-150 ease-in-out">CREMS</a>
+                            <span class="ml-8 inline-flex rounded-md shadow-sm">
+                                <a href="{{ route('login') }}" type="button" 
+                                class="inline-flex items-center px-2 py-2 border border-transparent text-xs leading-4 font-medium rounded text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150">
+                                    CREMS
+                                </a>
+                            </span>
                         </div>
                     </nav>
                 </div>

@@ -1,3 +1,12 @@
+v1.0.1 (17 May 2020)
+    [Add]
+    - Add Default Avatar Image
+
+    [Update]
+    - Update CSC Logo for CREMS
+    - Update button style in Webpage
+    - Update Default Dashboard for CREMS
+
 v1.0.0 (16 May 2020)
     [Add]
     - New Webpage for CREMS integration
