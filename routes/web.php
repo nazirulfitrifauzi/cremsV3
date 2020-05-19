@@ -17,8 +17,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes(['verify' => true]);
+Auth::routes();
 
-Route::group(['middleware' => ['verified', 'auth']], function () {
+Route::group(['middleware' => ['auth']], function () {
     Route::get('/home', 'HomeController@index')->name('home');
+
+    /** Human Resources **/
+    // Attendances
+    Route::get('/hr/attendance', 'AttendanceController@index')->name('attendances.index');
+    Route::post('/hr/attendance-store', 'AttendanceController@store')->name('attendances.store');
+
+    // Admin
+    Route::resource('/roles', 'Admin\RolesController');
 });
