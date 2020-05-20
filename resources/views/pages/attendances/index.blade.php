@@ -89,39 +89,43 @@
             @endif
 
             <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-                <h1 class="text-2xl font-semibold text-gray-900">Attendances</h1>
+                <!-- title -->
+                <div class="mt-2 md:flex md:items-center md:justify-between">
+                    <div class="flex-1 min-w-0">
+                        <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:leading-9 sm:truncate">
+                            Attendances
+                        </h2>
+                    </div>
+                </div>
             </div>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
                 <!-- Replace with your content -->
                 <div class="py-4">
                     <div class="flex flex-wrap -mx-2 overflow-hidden sm:-mx-2 md:-mx-4 lg:-mx-3 xl:-mx-3">
-                        <div
-                            class="my-2 px-2 w-full overflow-hidden sm:my-2 sm:px-2 sm:w-full md:my-4 md:px-4 md:w-1/2 lg:my-3 lg:px-3 lg:w-1/3 xl:my-3 xl:px-3 xl:w-1/3">
-                            <!-- Column Content -->
-                            <div class="bg-white border border-gray-300 overflow-hidden rounded-lg">
-                                <div class="px-4 py-5 sm:p-6">
-                                    <!-- Content goes here -->
+                        @php
+                            foreach ($staff as $staffs) {
+                                $today = Carbon\Carbon::now()->toDateString();
+                                $check = App\Models\Attendance::where('user_id',$staffs->id)->whereDate('login_at',$today)->exists();
+                        @endphp
+                                <div class="my-2 px-2 w-full overflow-hidden sm:my-2 sm:px-2 sm:w-full md:my-4 md:px-4 md:w-1/2 lg:my-3 lg:px-3 lg:w-1/3 xl:my-3 xl:px-3 xl:w-1/3">
+                                    <div class="border {{ ($check == true) ? 'border-green-300 bg-green-200' : 'border-red-300 bg-red-200' }} md:flex bg-white rounded-lg p-6">
+                                        <img class="h-16 w-16 md:h-20 md:w-20 rounded-full mx-auto md:mx-0" src="{{ asset('img/avatar/').'/'.auth()->user()->avatar }}">
+                                        <div class="md:ml-6 text-center md:text-left">
+                                            <h2 class="text-lg">{{ $staffs->name }}</h2>
+                                            <div class="mt-1 text-gray-600 text-sm">Location: {{ $staffs->attendances()->whereDate('login_at',$today)->value('location') }}</div>
+                                            <div class="mt-1 text-gray-600 text-sm">
+                                                Login at: 
+                                                @if ($check == true)
+                                                    {{ $staffs->attendances()->whereDate('login_at',$today)->value('login_at')->format('d M Y h:i A') }}
+                                                @endif
+                                            </div>
+                                            <div class="mt-1 text-gray-600 text-sm">Remarks: {{ $staffs->attendances()->whereDate('login_at',$today)->value('remarks') }}</div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div
-                            class="my-2 px-2 w-full overflow-hidden sm:my-2 sm:px-2 sm:w-full md:my-4 md:px-4 md:w-1/2 lg:my-3 lg:px-3 lg:w-1/3 xl:my-3 xl:px-3 xl:w-1/3">
-                            <!-- Column Content -->
-                            <div class="bg-red-200 border border-red-300 overflow-hidden rounded-lg">
-                                <div class="px-4 py-5 sm:p-6">
-                                    <!-- Content goes here -->
-                                </div>
-                            </div>
-                        </div>
-                        <div
-                            class="my-2 px-2 w-full overflow-hidden sm:my-2 sm:px-2 sm:w-full md:my-4 md:px-4 md:w-1/2 lg:my-3 lg:px-3 lg:w-1/3 xl:my-3 xl:px-3 xl:w-1/3">
-                            <!-- Column Content -->
-                            <div class=" bg-green-200 border border-green-300 overflow-hidden rounded-lg">
-                                <div class="px-4 py-5 sm:p-6">
-                                    <!-- Content goes here -->
-                                </div>
-                            </div>
-                        </div>
+                        @php
+                            }
+                        @endphp
                     </div>
                 </div>
                 <!-- /End replace -->

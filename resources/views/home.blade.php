@@ -169,8 +169,40 @@
             </div>
             @endif
 
+            @if (session('error'))
+            <div
+                class="fixed mt-12 inset-0 flex items-end justify-center px-4 py-6 pointer-events-none sm:p-6 sm:items-start sm:justify-end notification">
+                <div class="max-w-sm w-full bg-red-400 shadow-lg rounded-lg pointer-events-auto">
+                    <div class="rounded-lg shadow-xs overflow-hidden">
+                        <div class="p-4">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0">
+                                    <svg class="h-6 w-6 text-white" 
+                                        fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" fill-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                                <div class="ml-3 w-0 flex-1 pt-0.5">
+                                    <p class="text-sm leading-5 font-medium text-white">
+                                        {{ session('error') }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endif
+
             <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-                <h1 class="text-2xl font-semibold text-gray-900">Dashboard</h1>
+                <!-- title -->
+                <div class="mt-2 md:flex md:items-center md:justify-between">
+                    <div class="flex-1 min-w-0">
+                        <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:leading-9 sm:truncate">
+                            Dashboard
+                        </h2>
+                    </div>
+                </div>
             </div>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
                 <!-- Replace with your content -->
@@ -189,7 +221,7 @@
 <script>
     $(document).ready(function () {
 
-        @if(session('status') || session('notAttend'))
+        @if(session('status') || session('notAttend') || session('error'))
         setTimeout(function () {
             $('.notification').animate({
                 opacity: '1'

@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Attendance;
+use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AttendanceController extends Controller
 {
     public function index()
     {
-        return view('pages.attendances.index');
+        $staff = User::whereIn('role', array(2, 3))->get();
+        return view('pages.attendances.index', compact('staff'));
     }
 
     public function store(Request $request)
