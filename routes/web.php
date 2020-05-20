@@ -24,9 +24,13 @@ Route::group(['middleware' => ['auth']], function () {
 
     /** Human Resources **/
     // Attendances
-    Route::get('/hr/attendance', 'AttendanceController@index')->name('attendances.index');
-    Route::post('/hr/attendance-store', 'AttendanceController@store')->name('attendances.store');
+    Route::group(['middleware' => ['staff']], function () {
+        Route::get('/hr/attendance', 'AttendanceController@index')->name('attendances.index');
+        Route::post('/hr/attendance-store', 'AttendanceController@store')->name('attendances.store');
+    });
 
-    // Admin
-    Route::resource('/roles', 'Admin\RolesController');
+    // Sys Admin
+    Route::group(['middleware' => ['sysAdmin']], function () {
+        Route::resource('/roles', 'Admin\RolesController');
+    });
 });

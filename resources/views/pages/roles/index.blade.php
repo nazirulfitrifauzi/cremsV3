@@ -131,10 +131,11 @@
                                                 </div>
                                             </div>
                                             <div class="mt-4 flex-shrink-0 sm:mt-0">
-                                                <div class="flex overflow-hidden">
+                                                <div class="flex">
                                                     @foreach ($role->user as $users)
-                                                    <img class="{{ ($loop->first) ? '' : '-ml-1' }} inline-block h-6 w-6 rounded-full text-white shadow-solid"
-                                                        src="{{ asset('img/avatar/').'/'.$users->avatar }}" alt="" />
+                                                    <span class="hint--bottom hint--rounded" aria-label="{{ $users->name }}">
+                                                        <img class="inline-block h-6 w-6 rounded-full text-white shadow-solid" src="{{ asset('img/avatar/').'/'.$users->avatar }}" alt="" />
+                                                    </span>
                                                     @endforeach
                                                 </div>
                                             </div>

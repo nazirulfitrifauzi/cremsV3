@@ -13,6 +13,10 @@ class Attendance extends Model
 
     public $timestamps = false;
 
+    protected $dates = [
+        'login_at',
+    ];
+
     public function user()
     {
         return $this->hasMany(User::class, 'user_id', 'id');
