@@ -286,7 +286,7 @@
                 <!-- breadcrumbs -->
                 <div>
                     <nav class="hidden sm:flex items-center text-sm leading-5 font-medium">
-                        <a href="{{ route('leaves.index') }}"
+                        <a href="{{ route('leave.index') }}"
                             class="text-gray-500 hover:text-gray-700 transition duration-150 ease-in-out">Leaves</a>
                         <svg class="flex-shrink-0 mx-2 h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd"
@@ -364,7 +364,52 @@
                 endTime: '18:00',
             },
             eventSources: [
-                // add eventsource for leave
+                [
+                    @foreach($leave as $leaves)
+                    {
+                        title : '{{ $leaves->user->name }} - {{ $leaves->reason }}',
+                        description : '{{ $leaves->title }}',
+                        @if ($leaves->halfDay == '0')
+                            start : '{{ $leaves->start }}',
+                            end : '{{ $leaves->end->addDays(1) }}',
+                            allDay: true,
+                        @else
+                            start : '{{ $leaves->start }}',
+                            end : '{{ $leaves->end }}',
+                        @endif
+
+                        @if ($leaves->type == 'AL')
+                            @if ($leaves->halfDay == '0')
+                                color: '#083561',
+                                textColor: '#ffffff',
+                            @else
+                                color: '#23a699',
+                                textColor: '#ffffff',
+                            @endif
+                        @elseif($leaves->type == 'MC')
+                            color: '#228f2a',
+                            textColor: '#ffffff',
+                        @elseif($leaves->type == 'EL')
+                            color: '#f56e25',
+                            textColor: '#ffffff',
+                        @elseif($leaves->type == 'UP')
+                            color: '#d41111',
+                            textColor: '#ffffff',
+                        @elseif($leaves->type == 'CL')
+                            color: '#70196f',
+                            textColor: '#ffffff',
+                        @elseif($leaves->type == 'M' || $leaves->type == 'P')
+                            color: '#e6397b',
+                            textColor: '#ffffff',
+                        @elseif($leaves->type == 'X')
+                            color: '#52575c',
+                            textColor: '#ffffff',
+                        @endif
+                        
+                        constraint: 'businessHours'
+                    },
+                    @endforeach
+                ],
                 {
                     googleCalendarId: 'en.malaysia#holiday@group.v.calendar.google.com',
                     color: '#fffa70',

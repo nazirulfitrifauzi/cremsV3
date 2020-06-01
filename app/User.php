@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Models\Attendance;
+use App\Models\Leave;
 use App\Models\Role;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -40,6 +41,11 @@ class User extends Authenticatable
     public function attendances()
     {
         return $this->hasMany(Attendance::class, 'user_id', 'id');
+    }
+
+    public function leaves()
+    {
+        return $this->hasMany(Leave::class, 'user_id', 'id');
     }
 
     public function roles()

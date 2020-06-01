@@ -28,8 +28,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/hr/attendance', 'HR\AttendanceController@index')->name('attendances.index');
         Route::post('/hr/attendance-store', 'HR\AttendanceController@store')->name('attendances.store');
         // Leaves
-        Route::get('/hr/leave', 'HR\LeaveController@index')->name('leaves.index');
-        Route::get('/hr/leave/calendar', 'HR\LeaveController@calendar')->name('leaves.calendar');
+        Route::resource('/hr/leave', 'HR\LeaveController');
+        Route::get('/hr/leave-calendar', 'HR\LeaveController@calendar')->name('leave.calendar');
     });
 
     // Sys Admin
