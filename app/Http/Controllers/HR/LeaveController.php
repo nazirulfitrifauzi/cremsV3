@@ -11,7 +11,9 @@ class LeaveController extends Controller
 {
     public function index()
     {
-        return view('pages.hr.leaves.index');
+        $leave = Leave::where('user_id', auth()->user()->id)->simplePaginate(10);
+
+        return view('pages.hr.leaves.index', compact('leave'));
     }
 
     public function create()
@@ -56,13 +58,24 @@ class LeaveController extends Controller
             $n_end = Carbon::createFromFormat('Y-m-d', $end);
         }
 
+        $start = Carbon::parse($request->get('start'));
+        $end = Carbon::parse($request->get('end'));
+        $days = $start->diffInDays($end);
+
+        if ($request->get('type') == 'AL' && $request->get('halfday') == '1') {
+            $c_days = 0.5;
+        } else {
+            $c_days = $days + 1;
+        }
+
         $staffLeave = new Leave([
             'user_id'           =>  $userId,
             'reason'            =>  $request->get('reason'),
             'type'              =>  $request->get('type'),
             'start'             =>  $n_start,
             'end'               =>  $n_end,
-            'halfDay'           =>  $halfday
+            'halfDay'           =>  $halfday,
+            'days'              =>  $c_days,
         ]);
 
         $staffLeave->save();

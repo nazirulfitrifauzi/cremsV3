@@ -21,6 +21,7 @@ class CreateLeaveTable extends Migration
             $table->dateTime('start');
             $table->dateTime('end');
             $table->string('halfDay');
+            $table->decimal('days', 2, 1);
             $table->integer('status')->default(0);
         });
     }
