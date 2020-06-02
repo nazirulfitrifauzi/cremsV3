@@ -369,23 +369,21 @@
                     {
                         title : '{{ $leaves->user->name }} - {{ $leaves->reason }}',
                         description : '{{ $leaves->title }}',
-                        @if ($leaves->halfDay == '0')
+                        @if ($leaves->type == 'HL')
+                            start : '{{ $leaves->start }}',
+                            end : '{{ $leaves->end }}',
+                        @else
                             start : '{{ $leaves->start }}',
                             end : '{{ $leaves->end->addDays(1) }}',
                             allDay: true,
-                        @else
-                            start : '{{ $leaves->start }}',
-                            end : '{{ $leaves->end }}',
                         @endif
 
                         @if ($leaves->type == 'AL')
-                            @if ($leaves->halfDay == '0')
-                                color: '#083561',
-                                textColor: '#ffffff',
-                            @else
-                                color: '#23a699',
-                                textColor: '#ffffff',
-                            @endif
+                            color: '#083561',
+                            textColor: '#ffffff',
+                        @elseif($leaves->type == 'HL')
+                            color: '#23a699',
+                            textColor: '#ffffff',
                         @elseif($leaves->type == 'MC')
                             color: '#228f2a',
                             textColor: '#ffffff',

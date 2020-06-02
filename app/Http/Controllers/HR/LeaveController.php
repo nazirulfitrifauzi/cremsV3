@@ -11,7 +11,7 @@ class LeaveController extends Controller
 {
     public function index()
     {
-        $leave = Leave::where('user_id', auth()->user()->id)->simplePaginate(10);
+        $leave = Leave::sortable()->where('user_id', auth()->user()->id)->simplePaginate(10);
 
         return view('pages.hr.leaves.index', compact('leave'));
     }
@@ -32,9 +32,7 @@ class LeaveController extends Controller
 
         $userId = auth()->user()->id;
 
-        if ($request->has('halfday')) {
-            $halfday = '1';
-
+        if ($request->get('type') == 'HL') {
             if ($request->get('am') == '1') {
                 $start = $request->get('start') . ' 09:00:00';
                 $end = $request->get('end') . ' 13:00:00';
@@ -49,8 +47,6 @@ class LeaveController extends Controller
                 $n_end = Carbon::createFromFormat('Y-m-d H:i:s', $end);
             }
         } else {
-            $halfday = '0';
-
             $start = $request->get('start');
             $end = $request->get('end');
 
@@ -62,7 +58,7 @@ class LeaveController extends Controller
         $end = Carbon::parse($request->get('end'));
         $days = $start->diffInDays($end);
 
-        if ($request->get('type') == 'AL' && $request->get('halfday') == '1') {
+        if ($request->get('type') == 'HL') {
             $c_days = 0.5;
         } else {
             $c_days = $days + 1;
@@ -74,7 +70,6 @@ class LeaveController extends Controller
             'type'              =>  $request->get('type'),
             'start'             =>  $n_start,
             'end'               =>  $n_end,
-            'halfDay'           =>  $halfday,
             'days'              =>  $c_days,
         ]);
 

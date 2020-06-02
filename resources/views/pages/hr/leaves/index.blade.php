@@ -326,27 +326,27 @@
                                         <tr>
                                             <th
                                                 class="px-6 py-3 border-b border-gray-200 bg-gray-300 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
-                                                Type
+                                                @sortablelink('type','Type')
                                             </th>
                                             <th
                                                 class="px-6 py-3 border-b border-gray-200 bg-gray-300 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
-                                                Reason
+                                                @sortablelink('reason','Reason')
                                             </th>
                                             <th
                                                 class="px-6 py-3 border-b border-gray-200 bg-gray-300 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
-                                                Start
+                                                @sortablelink('start','Start')
                                             </th>
                                             <th
                                                 class="px-6 py-3 border-b border-gray-200 bg-gray-300 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
-                                                End
+                                                @sortablelink('end','End')
                                             </th>
                                             <th
                                                 class="px-6 py-3 border-b border-gray-200 bg-gray-300 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
-                                                Days
+                                                @sortablelink('days','Days')
                                             </th>
                                             <th
                                                 class="px-6 py-3 border-b border-gray-200 bg-gray-300 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
-                                                Status
+                                                @sortablelink('status','Status')
                                             </th>
                                         </tr>
                                     </thead>
@@ -355,11 +355,9 @@
                                             <tr>
                                                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-600">
                                                     @if($leaves->type == 'AL')
-                                                        @if($leaves->halfDay == '0')
-                                                            Annual Leave
-                                                        @elseif($leaves->halfDay == '1')
-                                                            Half Day
-                                                        @endif
+                                                        Annual Leave
+                                                    @elseif($leaves->type == 'HL')
+                                                        Half Day
                                                     @elseif($leaves->type == 'MC')
                                                         Medical Leave
                                                     @elseif($leaves->type == 'EL')

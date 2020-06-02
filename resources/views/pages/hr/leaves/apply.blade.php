@@ -1,173 +1,5 @@
 @extends('layouts.app')
 
-@section('style')
-<style>
-    .popper,
-    .tooltip {
-        position: absolute;
-        z-index: 9999;
-        background: #FFC107;
-        color: black;
-        width: 150px;
-        border-radius: 3px;
-        box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
-        padding: 10px;
-        text-align: center;
-    }
-
-    .style5 .tooltip {
-        background: #1E252B;
-        color: #FFFFFF;
-        max-width: 200px;
-        width: auto;
-        font-size: .8rem;
-        padding: .5em 1em;
-    }
-
-    .popper .popper__arrow,
-    .tooltip .tooltip-arrow {
-        width: 0;
-        height: 0;
-        border-style: solid;
-        position: absolute;
-        margin: 5px;
-    }
-
-    .tooltip .tooltip-arrow,
-    .popper .popper__arrow {
-        border-color: #FFC107;
-    }
-
-    .style5 .tooltip .tooltip-arrow {
-        border-color: #1E252B;
-    }
-
-    .popper[x-placement^="top"],
-    .tooltip[x-placement^="top"] {
-        margin-bottom: 5px;
-    }
-
-    .popper[x-placement^="top"] .popper__arrow,
-    .tooltip[x-placement^="top"] .tooltip-arrow {
-        border-width: 5px 5px 0 5px;
-        border-left-color: transparent;
-        border-right-color: transparent;
-        border-bottom-color: transparent;
-        bottom: -5px;
-        left: calc(50% - 5px);
-        margin-top: 0;
-        margin-bottom: 0;
-    }
-
-    .popper[x-placement^="bottom"],
-    .tooltip[x-placement^="bottom"] {
-        margin-top: 5px;
-    }
-
-    .tooltip[x-placement^="bottom"] .tooltip-arrow,
-    .popper[x-placement^="bottom"] .popper__arrow {
-        border-width: 0 5px 5px 5px;
-        border-left-color: transparent;
-        border-right-color: transparent;
-        border-top-color: transparent;
-        top: -5px;
-        left: calc(50% - 5px);
-        margin-top: 0;
-        margin-bottom: 0;
-    }
-
-    .tooltip[x-placement^="right"],
-    .popper[x-placement^="right"] {
-        margin-left: 5px;
-    }
-
-    .popper[x-placement^="right"] .popper__arrow,
-    .tooltip[x-placement^="right"] .tooltip-arrow {
-        border-width: 5px 5px 5px 0;
-        border-left-color: transparent;
-        border-top-color: transparent;
-        border-bottom-color: transparent;
-        left: -5px;
-        top: calc(50% - 5px);
-        margin-left: 0;
-        margin-right: 0;
-    }
-
-    .popper[x-placement^="left"],
-    .tooltip[x-placement^="left"] {
-        margin-right: 5px;
-    }
-
-    .popper[x-placement^="left"] .popper__arrow,
-    .tooltip[x-placement^="left"] .tooltip-arrow {
-        border-width: 5px 0 5px 5px;
-        border-top-color: transparent;
-        border-right-color: transparent;
-        border-bottom-color: transparent;
-        right: -5px;
-        top: calc(50% - 5px);
-        margin-left: 0;
-        margin-right: 0;
-    }
-
-    /* basic positioning */
-    .legend {
-        list-style: none;
-    }
-
-    .legend li {
-        float: left;
-        margin-right: 10px;
-    }
-
-    .legend span {
-        border: 1px solid #ccc;
-        float: left;
-        width: 12px;
-        height: 12px;
-        margin: 2px;
-    }
-
-    /* your colors */
-    .legend .Annual {
-        background-color: #083561;
-    }
-
-    .legend .Halfday {
-        background-color: #23a699;
-    }
-
-    .legend .Medical {
-        background-color: #228f2a;
-    }
-
-    .legend .Emergency {
-        background-color: #f56e25;
-    }
-
-    .legend .Unpaid {
-        background-color: #d41111;
-    }
-
-    .legend .Compassionate {
-        background-color: #70196f;
-    }
-
-    .legend .Maternity {
-        background-color: #e6397b;
-    }
-
-    .legend .Unrecorded {
-        background-color: #52575c;
-    }
-
-    .legend .Public {
-        background-color: #fffa70;
-    }
-
-</style>
-@endsection
-
 @section('content')
 <div class="h-screen flex overflow-hidden bg-gray-100" x-data="{ sidebarOpen: false }"
     @keydown.window.escape="sidebarOpen = false">
@@ -332,7 +164,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="px-4 py-5 sm:p-0">
+                            <div class="px-4 py-5 sm:p-0" x-data="{ open: ''}">
                                 <dl>
                                     <div class="sm:grid sm:grid-cols-4 sm:gap-4 sm:px-6 sm:py-5">
                                         <dt class="text-sm leading-5 font-medium text-gray-500">
@@ -341,8 +173,9 @@
                                         <dd
                                             class="mt-1 text-sm leading-5 text-gray-900 grid grid-cols-2 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-32">
                                             <div class="max-w-xs rounded-md shadow-sm">
-                                                <select id="type" name="type" class="block form-select transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+                                                <select id="type" name="type" class="block form-select transition duration-150 ease-in-out sm:text-sm sm:leading-5" @change="open = $event.target.value">
                                                     <option value="AL">Annual Leave</option>
+                                                    <option x-bind:value="'HL'">Halfday (Annual Leave)</option>
                                                     <option value="MC">Medical Leave</option>
                                                     <option value="EL">Emergency Leave</option>
                                                     <option value="UP">Unpaid Leave</option>
@@ -351,6 +184,32 @@
                                                     <option value="P">Paternity Leave</option>
                                                     <option value="X">Unrecorded Leave</option>
                                                 </select>
+                                            </div>
+                                        </dd>
+                                    </div>
+                                    <div x-show="open === 'HL'" class="mt-8 sm:mt-0 sm:grid sm:grid-cols-4 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
+                                        <dt class="text-sm leading-5 font-medium text-gray-500">
+                                            Halfday
+                                        </dt>
+                                        <dd
+                                            class="mt-1 text-sm leading-5 text-gray-900 grid grid-cols-1 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-32">
+                                            <div class="relative flex items-start">
+                                                <div class="absolute flex items-center h-5">
+                                                    <input id="am" name="am" type="checkbox" value="1"
+                                                        class="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out" />
+                                                </div>
+                                                <div class="pl-8 text-sm leading-5">
+                                                    <label for="am" class="font-medium text-gray-700">AM</label>
+                                                </div>
+                                            </div>
+                                            <div class="relative flex items-start">
+                                                <div class="absolute flex items-center h-5">
+                                                    <input id="pm" name="pm" type="checkbox" value="1"
+                                                        class="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out" />
+                                                </div>
+                                                <div class="pl-8 text-sm leading-5">
+                                                    <label for="pm" class="font-medium text-gray-700">PM</label>
+                                                </div>
                                             </div>
                                         </dd>
                                     </div>
@@ -368,42 +227,6 @@
                                                 <label for="end" class="text-sm leading-5 font-medium text-gray-500">To</label>
                                                 <input id="end" name="end" type="date" value=""
                                                 class="mt-1 form-input block py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('end') border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red @enderror" />
-                                            </div>
-                                        </dd>
-                                    </div>
-                                    <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-4 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
-                                        <dt class="text-sm leading-5 font-medium text-gray-500">
-                                            Halfday
-                                        </dt>
-                                        <dd
-                                            class="mt-1 text-sm leading-5 text-gray-900 grid grid-cols-1 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-32">
-                                            <div class="relative flex items-start">
-                                                <div class="absolute flex items-center h-5">
-                                                    <input id="halfday" name="halfday" type="checkbox" value="1"
-                                                        class="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out" />
-                                                </div>
-                                                <div class="pl-8 text-sm leading-5">
-                                                    <label for="halfday"
-                                                        class="font-medium text-gray-700">Yes</label>
-                                                </div>
-                                            </div>
-                                            <div id="amdiv" class="relative flex items-start hidden">
-                                                <div class="absolute flex items-center h-5">
-                                                    <input id="am" name="am" type="checkbox" value="1"
-                                                        class="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out" />
-                                                </div>
-                                                <div class="pl-8 text-sm leading-5">
-                                                    <label for="am" class="font-medium text-gray-700">AM</label>
-                                                </div>
-                                            </div>
-                                            <div id="pmdiv" class="relative flex items-start hidden">
-                                                <div class="absolute flex items-center h-5">
-                                                    <input id="pm" name="pm" type="checkbox" value="1"
-                                                        class="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out" />
-                                                </div>
-                                                <div class="pl-8 text-sm leading-5">
-                                                    <label for="pm" class="font-medium text-gray-700">PM</label>
-                                                </div>
                                             </div>
                                         </dd>
                                     </div>
@@ -456,19 +279,5 @@
 
     });
 
-</script>
-<script>
-    $(function() {
-        $("#halfday").click(function() {
-            if ($(this).is(":checked")) {
-                $("#amdiv").show();
-                $("#pmdiv").show();
-            } else {
-                $("#amdiv").hide();
-                $("#pmdiv").hide();
-                $( 'input[type="checkbox"]' ).prop('checked', false);
-            }
-        });
-    });
 </script>
 @endpush

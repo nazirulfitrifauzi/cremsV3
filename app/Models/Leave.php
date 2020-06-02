@@ -4,9 +4,12 @@ namespace App\Models;
 
 use App\User;
 use Illuminate\Database\Eloquent\Model;
+use Kyslik\ColumnSortable\Sortable;
 
 class Leave extends Model
 {
+    use Sortable;
+
     protected $table = 'leaves';
 
     protected $guarded = [];
@@ -17,6 +20,8 @@ class Leave extends Model
         'start',
         'end',
     ];
+
+    public $sortable = ['user_id', 'reason', 'type', 'start', 'end', 'halfDay', 'days', 'status'];
 
     public function user()
     {
