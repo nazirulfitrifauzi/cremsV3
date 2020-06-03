@@ -44,8 +44,8 @@
                     class="{{ (auth()->user()->roles->attendances == 1) ? 'block' : 'hidden' }} mt-1 group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-300 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150 {{ (\Request::is('hr/attendance')) ? 'text-white bg-gray-900' : 'text-gray-300 hover:text-white hover:bg-gray-700 focus:text-white' }}">
                     <span class="ml-10">Attendances</span>
                 </a>
-                <a href="#"
-                    class="{{ (auth()->user()->roles->leaves == 1) ? 'block' : 'hidden' }} mt-1 group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-300 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                <a href="{{ route('leave.index') }}"
+                    class="{{ (auth()->user()->roles->leaves == 1) ? 'block' : 'hidden' }} mt-1 group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-300 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150 {{ (\Request::is('hr/leave*')) ? 'text-white bg-gray-900' : 'text-gray-300 hover:text-white hover:bg-gray-700 focus:text-white' }}">
                     <span class="ml-10">Leaves</span>
                 </a>
                 <a href="#"

@@ -23,10 +23,15 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/home', 'HomeController@index')->name('home');
 
     /** Human Resources **/
-    // Attendances
     Route::group(['middleware' => ['staff']], function () {
-        Route::get('/hr/attendance', 'AttendanceController@index')->name('attendances.index');
-        Route::post('/hr/attendance-store', 'AttendanceController@store')->name('attendances.store');
+        // Attendances
+        Route::get('/hr/attendance', 'HR\AttendanceController@index')->name('attendances.index');
+        Route::post('/hr/attendance-store', 'HR\AttendanceController@store')->name('attendances.store');
+        // Leaves
+        Route::resource('/hr/leave', 'HR\LeaveController');
+        Route::patch('/hr/leave/approve/{leave}', 'HR\LeaveController@approve')->name('leave.approve');
+        Route::patch('/hr/leave/reject/{leave}', 'HR\LeaveController@reject')->name('leave.reject');
+        Route::get('/hr/leave-calendar', 'HR\LeaveController@calendar')->name('leave.calendar');
     });
 
     // Sys Admin
