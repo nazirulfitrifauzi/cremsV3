@@ -21,7 +21,7 @@ class Leave extends Model
         'end',
     ];
 
-    public $sortable = ['user_id', 'reason', 'type', 'start', 'end', 'halfDay', 'days', 'status'];
+    public $sortable = ['user_id', 'reason', 'type', 'start', 'end', 'days', 'status'];
 
     public function user()
     {

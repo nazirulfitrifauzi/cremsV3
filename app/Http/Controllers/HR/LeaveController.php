@@ -11,7 +11,11 @@ class LeaveController extends Controller
 {
     public function index()
     {
-        $leave = Leave::sortable()->where('user_id', auth()->user()->id)->simplePaginate(10);
+        if (auth()->user()->role == '1' || auth()->user()->role == '2') { // admin or hr
+            $leave = Leave::sortable()->simplePaginate(10);
+        } else { // staff
+            $leave = Leave::sortable()->where('user_id', auth()->user()->id)->simplePaginate(10);
+        }
 
         return view('pages.hr.leaves.index', compact('leave'));
     }
@@ -89,7 +93,7 @@ class LeaveController extends Controller
         //
     }
 
-    public function update(Request $request)
+    public function update($type, $id)
     {
         //
     }
@@ -97,6 +101,30 @@ class LeaveController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function approve($id)
+    {
+        $name = Leave::find($id)->user->name;
+        Leave::whereId($id)->update(['status' => 1]);
+
+        session()->flash('status', $name . "'s leave application has been approved.");
+        //  Return response
+        return response()->json([
+            'success' => true,
+        ]);
+    }
+
+    public function reject($id)
+    {
+        $name = Leave::find($id)->user->name;
+        Leave::whereId($id)->update(['status' => 2]);
+
+        session()->flash('error', $name . "'s leave application has been rejected.");
+        //  Return response
+        return response()->json([
+            'success' => true,
+        ]);
     }
 
     public function calendar()

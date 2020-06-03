@@ -1,192 +1,32 @@
 @extends('layouts.app')
 
-@section('style')
-<style>
-    .popper,
-    .tooltip {
-        position: absolute;
-        z-index: 9999;
-        background: #FFC107;
-        color: black;
-        width: 150px;
-        border-radius: 3px;
-        box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
-        padding: 10px;
-        text-align: center;
-    }
-
-    .style5 .tooltip {
-        background: #1E252B;
-        color: #FFFFFF;
-        max-width: 200px;
-        width: auto;
-        font-size: .8rem;
-        padding: .5em 1em;
-    }
-
-    .popper .popper__arrow,
-    .tooltip .tooltip-arrow {
-        width: 0;
-        height: 0;
-        border-style: solid;
-        position: absolute;
-        margin: 5px;
-    }
-
-    .tooltip .tooltip-arrow,
-    .popper .popper__arrow {
-        border-color: #FFC107;
-    }
-
-    .style5 .tooltip .tooltip-arrow {
-        border-color: #1E252B;
-    }
-
-    .popper[x-placement^="top"],
-    .tooltip[x-placement^="top"] {
-        margin-bottom: 5px;
-    }
-
-    .popper[x-placement^="top"] .popper__arrow,
-    .tooltip[x-placement^="top"] .tooltip-arrow {
-        border-width: 5px 5px 0 5px;
-        border-left-color: transparent;
-        border-right-color: transparent;
-        border-bottom-color: transparent;
-        bottom: -5px;
-        left: calc(50% - 5px);
-        margin-top: 0;
-        margin-bottom: 0;
-    }
-
-    .popper[x-placement^="bottom"],
-    .tooltip[x-placement^="bottom"] {
-        margin-top: 5px;
-    }
-
-    .tooltip[x-placement^="bottom"] .tooltip-arrow,
-    .popper[x-placement^="bottom"] .popper__arrow {
-        border-width: 0 5px 5px 5px;
-        border-left-color: transparent;
-        border-right-color: transparent;
-        border-top-color: transparent;
-        top: -5px;
-        left: calc(50% - 5px);
-        margin-top: 0;
-        margin-bottom: 0;
-    }
-
-    .tooltip[x-placement^="right"],
-    .popper[x-placement^="right"] {
-        margin-left: 5px;
-    }
-
-    .popper[x-placement^="right"] .popper__arrow,
-    .tooltip[x-placement^="right"] .tooltip-arrow {
-        border-width: 5px 5px 5px 0;
-        border-left-color: transparent;
-        border-top-color: transparent;
-        border-bottom-color: transparent;
-        left: -5px;
-        top: calc(50% - 5px);
-        margin-left: 0;
-        margin-right: 0;
-    }
-
-    .popper[x-placement^="left"],
-    .tooltip[x-placement^="left"] {
-        margin-right: 5px;
-    }
-
-    .popper[x-placement^="left"] .popper__arrow,
-    .tooltip[x-placement^="left"] .tooltip-arrow {
-        border-width: 5px 0 5px 5px;
-        border-top-color: transparent;
-        border-right-color: transparent;
-        border-bottom-color: transparent;
-        right: -5px;
-        top: calc(50% - 5px);
-        margin-left: 0;
-        margin-right: 0;
-    }
-
-    /* basic positioning */
-    .legend {
-        list-style: none;
-    }
-
-    .legend li {
-        float: left;
-        margin-right: 10px;
-    }
-
-    .legend span {
-        border: 1px solid #ccc;
-        float: left;
-        width: 12px;
-        height: 12px;
-        margin: 2px;
-    }
-
-    /* your colors */
-    .legend .Annual {
-        background-color: #083561;
-    }
-
-    .legend .Halfday {
-        background-color: #23a699;
-    }
-
-    .legend .Medical {
-        background-color: #228f2a;
-    }
-
-    .legend .Emergency {
-        background-color: #f56e25;
-    }
-
-    .legend .Unpaid {
-        background-color: #d41111;
-    }
-
-    .legend .Compassionate {
-        background-color: #70196f;
-    }
-
-    .legend .Maternity {
-        background-color: #e6397b;
-    }
-
-    .legend .Unrecorded {
-        background-color: #52575c;
-    }
-
-    .legend .Public {
-        background-color: #fffa70;
-    }
-
-</style>
-@endsection
-
 @section('content')
 <div class="h-screen flex overflow-hidden bg-gray-100" x-data="{ sidebarOpen: false }"
     @keydown.window.escape="sidebarOpen = false">
     <!-- Off-canvas menu for mobile -->
     <div x-show="sidebarOpen" class="md:hidden" style="display: none;">
         <div class="fixed inset-0 flex z-40">
-            <div @click="sidebarOpen = false" x-show="sidebarOpen"
+            <div @click="sidebarOpen = false" 
+                x-show="sidebarOpen"
                 x-description="Off-canvas menu overlay, show/hide based on off-canvas menu state."
-                x-transition:enter="transition-opacity ease-linear duration-300" x-transition:enter-start="opacity-0"
-                x-transition:enter-end="opacity-100" x-transition:leave="transition-opacity ease-linear duration-300"
-                x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0"
-                style="display: none;">
+                x-transition:enter="transition-opacity ease-linear duration-300" 
+                x-transition:enter-start="opacity-0"
+                x-transition:enter-end="opacity-100" 
+                x-transition:leave="transition-opacity ease-linear duration-300"
+                x-transition:leave-start="opacity-100" \
+                x-transition:leave-end="opacity-0" 
+                class="fixed inset-0" style="display: none;">
                 <div class="absolute inset-0 bg-gray-600 opacity-75"></div>
             </div>
-            <div x-show="sidebarOpen" x-description="Off-canvas menu, show/hide based on off-canvas menu state."
+            <div 
+                x-show="sidebarOpen" 
+                x-description="Off-canvas menu, show/hide based on off-canvas menu state."
                 x-transition:enter="transition ease-in-out duration-300 transform"
-                x-transition:enter-start="-translate-x-full" x-transition:enter-end="translate-x-0"
+                x-transition:enter-start="-translate-x-full" 
+                x-transition:enter-end="translate-x-0"
                 x-transition:leave="transition ease-in-out duration-300 transform"
-                x-transition:leave-start="translate-x-0" x-transition:leave-end="-translate-x-full"
+                x-transition:leave-start="translate-x-0" 
+                x-transition:leave-end="-translate-x-full"
                 class="relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 bg-gray-800" style="display: none;">
                 <div class="absolute top-0 right-0 -mr-14 p-1">
                     <button x-show="sidebarOpen" @click="sidebarOpen = false"
@@ -316,14 +156,21 @@
             </div>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
                 <!-- Replace with your content -->
-                <div class="py-4">
+                <div 
+                    class="py-4"
+                    x-data="{...approve_modal(), ...reject_modal() }"
+                >
                     <div class="flex flex-col">
                         <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-                            <div
-                                class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
+                            <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
                                 <table class="min-w-full">
                                     <thead>
                                         <tr>
+                                            @if (auth()->user()->role == '1' || auth()->user()->role == '2')
+                                                <th class="px-6 py-3 border-b border-gray-200 bg-gray-300 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
+                                                    @sortablelink('user.name','Name')
+                                                </th>
+                                            @endif
                                             <th
                                                 class="px-6 py-3 border-b border-gray-200 bg-gray-300 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                                                 @sortablelink('type','Type')
@@ -348,11 +195,21 @@
                                                 class="px-6 py-3 border-b border-gray-200 bg-gray-300 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                                                 @sortablelink('status','Status')
                                             </th>
+                                            @if (auth()->user()->role == '1' || auth()->user()->role == '2')
+                                                <th class="px-6 py-3 border-b border-gray-200 bg-gray-300 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider text-center">
+                                                    Action
+                                                </th>
+                                            @endif
                                         </tr>
                                     </thead>
                                     <tbody class="bg-white">
                                         @forelse ($leave as $leaves)
-                                            <tr>
+                                            <tr class="hover:bg-blue-100 transition duration-150 ease-in-out">
+                                                @if (auth()->user()->role == '1' || auth()->user()->role == '2')
+                                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-600">
+                                                        {{ $leaves->user->name }}
+                                                    </td>
+                                                @endif
                                                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-600">
                                                     @if($leaves->type == 'AL')
                                                         Annual Leave
@@ -374,7 +231,7 @@
                                                         Unrecorded Leave
                                                     @endif
                                                 </td>
-                                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-600">
+                                                <td class="px-6 py-4 whitespace-normal border-b border-gray-200 text-sm leading-5 text-gray-600">
                                                     {{ $leaves->reason }}
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-600">
@@ -392,7 +249,7 @@
                                                     @endif
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-600">
-                                                    {{ str_pad($leaves->days, 3, '0', STR_PAD_LEFT) }}
+                                                    {{ floatval($leaves->days) }}
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-600">
                                                     @if($leaves->status == 0)
@@ -409,6 +266,36 @@
                                                         </span>
                                                     @endif
                                                 </td>
+                                                @if (auth()->user()->role == '1' || auth()->user()->role == '2')
+                                                    @if($leaves->status == 0)
+                                                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-600">
+                                                            <div class="flex justify-center">
+                                                                <span class="inline-flex rounded-md shadow-sm mx-1">
+                                                                    <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-green-600 hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green active:bg-green-700 transition ease-in-out duration-150"
+                                                                    @click="approve_open('{{ $leaves->id }}', '{{ $leaves->user->name }}', '{{ $leaves->days }}', '{{ $leaves->start }}', '{{ $leaves->end }}')">
+                                                                        <svg class="-ml-0.5 mr-2 h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+                                                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                                                        </svg>
+                                                                        Approve
+                                                                    </button>
+                                                                </span>
+                                                                <span class="inline-flex rounded-md shadow-sm mx-1">
+                                                                    <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-red-600 hover:bg-red-500 focus:outline-none focus:border-red-700 focus:shadow-outline-red active:bg-red-700 transition ease-in-out duration-150"
+                                                                    @click="reject_open('{{ $leaves->id }}', '{{ $leaves->user->name }}', '{{ $leaves->days }}', '{{ $leaves->start }}', '{{ $leaves->end }}')">
+                                                                        <svg class="-ml-0.5 mr-2 h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+                                                                            <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                                                                        </svg>
+                                                                        Reject
+                                                                    </button>
+                                                                </span>
+                                                            </div>
+                                                        </td>
+                                                    @else
+                                                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-600">
+                                                            {{-- dummy content for border --}}
+                                                        </td>
+                                                    @endif
+                                                @endif
                                             </tr>
                                         @empty
                                             <tr>
@@ -419,6 +306,121 @@
                                         @endforelse
                                     </tbody>
                                 </table>
+                                
+                                <!-- approve modal -->
+                                <div 
+                                    class="fixed bottom-0 inset-x-0 px-4 pb-6 sm:inset-0 sm:p-0 sm:flex sm:items-center sm:justify-center"
+                                    x-show="approve_isOpen()"
+                                >
+                                    <div class="fixed inset-0 transition-opacity"
+                                        x-show="approve_isOpen()"
+                                        x-transition:enter="ease-out duration-300"
+                                        x-transition:enter-start="opacity-0"
+                                        x-transition:enter-end="opacity-100"
+                                        x-transition:leave="ease-in duration-200"
+                                        x-transition:leave-start="opacity-100"
+                                        x-transition:leave-end="opacity-0"
+                                    >
+                                        <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+                                    </div>
+
+                                    <div class="bg-white rounded-lg px-4 pt-5 pb-4 overflow-hidden shadow-xl transform transition-all sm:max-w-lg sm:w-full sm:p-6" role="dialog" aria-modal="true" aria-labelledby="modal-headline"
+                                        x-show="approve_isOpen()"
+                                        x-transition:enter="ease-out duration-300"
+                                        x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                                        x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
+                                        x-transition:leave="ease-in duration-200"
+                                        x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                                        x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                                    >
+                                        <div>
+                                            <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
+                                                <svg class="h-6 w-6 text-green-600" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                                </svg>
+                                            </div>
+                                            <div class="mt-3 text-center sm:mt-5">
+                                                <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
+                                                    Approve leave application?
+                                                </h3>
+                                                <div class="mt-2">
+                                                    <p id="app_desc" class="text-sm leading-5 text-gray-500"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
+                                            <span class="flex w-full rounded-md shadow-sm sm:col-start-1">
+                                                <button id="app_button" type="button" class="inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-indigo-600 text-base leading-6 font-medium text-white shadow-sm hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo transition ease-in-out duration-150 sm:text-sm sm:leading-5">
+                                                Approve
+                                                </button>
+                                            </span>
+                                            <span class="mt-3 flex w-full rounded-md shadow-sm sm:mt-0 sm:col-start-2">
+                                                <button type="button" class="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-white text-base leading-6 font-medium text-gray-700 shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5"
+                                                @click="approve_close()">
+                                                Cancel
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div> <!-- end approve modal-->
+
+                                <!-- reject modal -->
+                                <div 
+                                    class="fixed bottom-0 inset-x-0 px-4 pb-4 sm:inset-0 sm:flex sm:items-center sm:justify-center"
+                                    x-show="reject_isOpen()"
+                                >
+                                    <div class="fixed inset-0 transition-opacity"
+                                        x-show="reject_isOpen()"
+                                        x-transition:enter="ease-out duration-300"
+                                        x-transition:enter-start="opacity-0"
+                                        x-transition:enter-end="opacity-100"
+                                        x-transition:leave="ease-in duration-200"
+                                        x-transition:leave-start="opacity-100"
+                                        x-transition:leave-end="opacity-0"
+                                    >
+                                        <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+                                    </div>
+
+                                    <div class="bg-white rounded-lg px-4 pt-5 pb-4 overflow-hidden shadow-xl transform transition-all sm:max-w-lg sm:w-full sm:p-6" role="dialog" aria-modal="true" aria-labelledby="modal-headline"
+                                        x-show="reject_isOpen()"
+                                        x-transition:enter="ease-out duration-300"
+                                        x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                                        x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
+                                        x-transition:leave="ease-in duration-200"
+                                        x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                                        x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                                    >
+                                        <div class="sm:flex sm:items-start">
+                                            <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                                                <svg class="h-6 w-6 text-red-600" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                                                </svg>
+                                            </div>
+                                            <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                                                <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
+                                                Reject Leave Application!
+                                                </h3>
+                                                <div class="mt-2">
+                                                    <p id="rej_desc" class="text-sm leading-5 text-gray-500"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
+                                            <span class="flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
+                                                <button id="rej_button" type="button" class="inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-red-600 text-base leading-6 font-medium text-white shadow-sm hover:bg-red-500 focus:outline-none focus:border-red-700 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5">
+                                                Reject
+                                                </button>
+                                            </span>
+                                            <span class="mt-3 flex w-full rounded-md shadow-sm sm:mt-0 sm:w-auto">
+                                                <button type="button" class="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-white text-base leading-6 font-medium text-gray-700 shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5"
+                                                @click="reject_close()">
+                                                Cancel
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div> <!-- end reject modal -->
+
                             </div>
                             <div class="mt-4">{{ $leave->links() }}</div>
                         </div>
@@ -450,5 +452,76 @@
 
     });
 
+    function approve_modal() {
+        return {
+            app_show: false,
+            approve_open(id, name, days, start, end) { 
+                this.app_show = true;
+                document.getElementById("app_desc").innerHTML = "" + name + " apply leave for " + parseFloat(days).toPrecision() + " days, start from " + moment(start).format('DD/MM/YYYY') + " until " + moment(end).format('DD/MM/YYYY');
+                document.getElementById("app_button").onclick = function() {
+                    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+                    $.ajax({
+                        type: 'POST',
+                        url: "leave/approve/" + id,
+                        data: {'_token' : CSRF_TOKEN, '_method' : 'PATCH'},
+                        dataType: 'JSON',
+                        success: function (results) {
+                            if (results.success === true) {
+                                window.location = "{{ route('leave.index')}}";
+                                setTimeout(function () {
+                                    $('.notification').animate({
+                                        opacity: '1'
+                                    });
+                                }, 500);
+
+                                setTimeout(function () {
+                                    $('.notification').fadeOut('fast');
+                                }, 7000);
+                            }
+                        }
+                    });
+                }
+            },
+            approve_close(id) { this.app_show = false },
+            approve_isOpen(id) { return this.app_show === true },
+        }
+    }
+
+    function reject_modal() {
+        return {
+            rej_show: false,
+            reject_open(id, name, days, start, end) { 
+                this.rej_show = true;
+                document.getElementById("rej_desc").innerHTML = "" + name + " apply leave for " + parseFloat(days).toPrecision() + " days, start from " + moment(start).format('DD/MM/YYYY') + " until " + moment(end).format('DD/MM/YYYY');
+                document.getElementById("rej_button").onclick = function() {
+                    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+                    $.ajax({
+                        type: 'POST',
+                        url: "leave/reject/" + id,
+                        data: {'_token' : CSRF_TOKEN, '_method' : 'PATCH'},
+                        dataType: 'JSON',
+                        success: function (results) {
+                            if (results.success === true) {
+                                window.location = "{{ route('leave.index')}}";
+                                setTimeout(function () {
+                                    $('.notification').animate({
+                                        opacity: '1'
+                                    });
+                                }, 500);
+
+                                setTimeout(function () {
+                                    $('.notification').fadeOut('fast');
+                                }, 7000);
+                            }
+                        }
+                    });
+                }
+            },
+            reject_close(id) { this.rej_show = false },
+            reject_isOpen(id) { return this.rej_show === true },
+        }
+    }
 </script>
 @endpush

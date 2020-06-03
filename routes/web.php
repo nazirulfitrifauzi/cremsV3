@@ -29,6 +29,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/hr/attendance-store', 'HR\AttendanceController@store')->name('attendances.store');
         // Leaves
         Route::resource('/hr/leave', 'HR\LeaveController');
+        Route::patch('/hr/leave/approve/{leave}', 'HR\LeaveController@approve')->name('leave.approve');
+        Route::patch('/hr/leave/reject/{leave}', 'HR\LeaveController@reject')->name('leave.reject');
         Route::get('/hr/leave-calendar', 'HR\LeaveController@calendar')->name('leave.calendar');
     });
 

@@ -302,6 +302,44 @@
                         <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:leading-9 sm:truncate">
                             Calendar
                         </h2>
+                        <div class="flex mx-auto">
+                            <div class="mt-4 flex">
+                                <div class="h-4 w-4 rounded-lg bg-blue-900"></div>
+                                <p class="ml-2 text-s">Annual</p>
+                            </div>
+                            <div class="mt-4 ml-4 flex">
+                                <div class="h-4 w-4 rounded-lg bg-teal-500"></div>
+                                <p class="ml-2 text-s">Half Day</p>
+                            </div>
+                            <div class="mt-4 ml-4 flex">
+                                <div class="h-4 w-4 rounded-lg bg-green-500"></div>
+                                <p class="ml-2 text-s">Medical</p>
+                            </div>
+                            <div class="mt-4 ml-4 flex">
+                                <div class="h-4 w-4 rounded-lg bg-orange-600"></div>
+                                <p class="ml-2 text-s">Emergency</p>
+                            </div>
+                            <div class="mt-4 ml-4 flex">
+                                <div class="h-4 w-4 rounded-lg bg-red-600"></div>
+                                <p class="ml-2 text-s">Unpaid</p>
+                            </div>
+                            <div class="mt-4 ml-4 flex">
+                                <div class="h-4 w-4 rounded-lg bg-purple-600"></div>
+                                <p class="ml-2 text-s">Compassionate</p>
+                            </div>
+                            <div class="mt-4 ml-4 flex">
+                                <div class="h-4 w-4 rounded-lg bg-pink-600"></div>
+                                <p class="ml-2 text-s">Maternity/Paternity</p>
+                            </div>
+                            <div class="mt-4 ml-4 flex">
+                                <div class="h-4 w-4 rounded-lg bg-gray-600"></div>
+                                <p class="ml-2 text-s">Unrecorded</p>
+                            </div>
+                            <div class="mt-4 ml-4 flex">
+                                <div class="h-4 w-4 rounded-lg bg-yellow-300"></div>
+                                <p class="ml-2 text-s">Pubic Holiday</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -379,28 +417,28 @@
                         @endif
 
                         @if ($leaves->type == 'AL')
-                            color: '#083561',
+                            color: '#2a4365',
                             textColor: '#ffffff',
                         @elseif($leaves->type == 'HL')
-                            color: '#23a699',
+                            color: '#38b2ac',
                             textColor: '#ffffff',
                         @elseif($leaves->type == 'MC')
-                            color: '#228f2a',
+                            color: '#48bb78',
                             textColor: '#ffffff',
                         @elseif($leaves->type == 'EL')
-                            color: '#f56e25',
+                            color: '#dd6b20',
                             textColor: '#ffffff',
                         @elseif($leaves->type == 'UP')
-                            color: '#d41111',
+                            color: '#e53e3e',
                             textColor: '#ffffff',
                         @elseif($leaves->type == 'CL')
-                            color: '#70196f',
+                            color: '#805ad5',
                             textColor: '#ffffff',
                         @elseif($leaves->type == 'M' || $leaves->type == 'P')
-                            color: '#e6397b',
+                            color: '#d53f8c',
                             textColor: '#ffffff',
                         @elseif($leaves->type == 'X')
-                            color: '#52575c',
+                            color: '#718096',
                             textColor: '#ffffff',
                         @endif
                         
@@ -410,7 +448,7 @@
                 ],
                 {
                     googleCalendarId: 'en.malaysia#holiday@group.v.calendar.google.com',
-                    color: '#fffa70',
+                    color: '#faf089',
                     textColor: '#000000'
                 }
             ]
