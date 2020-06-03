@@ -1,3 +1,11 @@
+v1.1.0 (3 June 2020)
+    [Add]
+    - Roles Module
+    - Staff Leave Module
+
+    [Feature]
+    - PWA Support
+    
 v1.0.1 (17 May 2020)
     [Add]
     - Add Default Avatar Image
