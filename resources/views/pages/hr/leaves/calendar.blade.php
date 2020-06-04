@@ -169,63 +169,6 @@
 @endsection
 
 @section('content')
-<div class="h-screen flex overflow-hidden bg-gray-100" x-data="{ sidebarOpen: false }"
-    @keydown.window.escape="sidebarOpen = false">
-    <!-- Off-canvas menu for mobile -->
-    <div x-show="sidebarOpen" class="md:hidden" style="display: none;">
-        <div class="fixed inset-0 flex z-40">
-            <div @click="sidebarOpen = false" x-show="sidebarOpen"
-                x-description="Off-canvas menu overlay, show/hide based on off-canvas menu state."
-                x-transition:enter="transition-opacity ease-linear duration-300" x-transition:enter-start="opacity-0"
-                x-transition:enter-end="opacity-100" x-transition:leave="transition-opacity ease-linear duration-300"
-                x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0"
-                style="display: none;">
-                <div class="absolute inset-0 bg-gray-600 opacity-75"></div>
-            </div>
-            <div x-show="sidebarOpen" x-description="Off-canvas menu, show/hide based on off-canvas menu state."
-                x-transition:enter="transition ease-in-out duration-300 transform"
-                x-transition:enter-start="-translate-x-full" x-transition:enter-end="translate-x-0"
-                x-transition:leave="transition ease-in-out duration-300 transform"
-                x-transition:leave-start="translate-x-0" x-transition:leave-end="-translate-x-full"
-                class="relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 bg-gray-800" style="display: none;">
-                <div class="absolute top-0 right-0 -mr-14 p-1">
-                    <button x-show="sidebarOpen" @click="sidebarOpen = false"
-                        class="flex items-center justify-center h-12 w-12 rounded-full focus:outline-none focus:bg-gray-600"
-                        aria-label="Close sidebar" style="display: none;">
-                        <svg class="h-6 w-6 text-white" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M6 18L18 6M6 6l12 12"></path>
-                        </svg>
-                    </button>
-                </div>
-                <div class="flex-shrink-0 flex items-center px-4 justify-center">
-                    <img class="h-8 w-auto" src="{{ asset('img/logo/csc.png') }}" alt="Workflow">
-                </div>
-                <div class="mt-5 flex-1 h-0 overflow-y-auto">
-                    @include('layouts.sidebar.mobile')
-                </div>
-            </div>
-            <div class="flex-shrink-0 w-14">
-                <!-- Dummy element to force sidebar to shrink to fit close icon -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Static sidebar for desktop -->
-    <div class="hidden md:flex md:flex-shrink-0">
-        <div class="flex flex-col w-64">
-            <div class="flex items-center h-16 flex-shrink-0 px-4 bg-gray-900 justify-center">
-                <img class="h-8 w-auto" src="{{ asset('img/logo/csc.png') }}" alt="Workflow">
-            </div>
-            <div class="h-0 flex-1 flex flex-col overflow-y-auto">
-                <!-- Sidebar component, swap this element with another sidebar if you like -->
-                @include('layouts.sidebar.desktop')
-            </div>
-        </div>
-    </div>
-    <div class="flex flex-col w-0 flex-1 overflow-hidden">
-        @include('layouts.navbar.topbar')
-
         <main class="flex-1 relative z-0 overflow-y-auto py-6 focus:outline-none" tabindex="0" x-data=""
             x-init="$el.focus()">
 
@@ -302,42 +245,45 @@
                         <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:leading-9 sm:truncate">
                             Calendar
                         </h2>
-                        <div class="flex mx-auto">
-                            <div class="mt-4 flex">
-                                <div class="h-4 w-4 rounded-lg bg-blue-900"></div>
-                                <p class="ml-2 text-s">Annual</p>
-                            </div>
-                            <div class="mt-4 ml-4 flex">
-                                <div class="h-4 w-4 rounded-lg bg-teal-500"></div>
-                                <p class="ml-2 text-s">Half Day</p>
-                            </div>
-                            <div class="mt-4 ml-4 flex">
-                                <div class="h-4 w-4 rounded-lg bg-green-500"></div>
-                                <p class="ml-2 text-s">Medical</p>
-                            </div>
-                            <div class="mt-4 ml-4 flex">
-                                <div class="h-4 w-4 rounded-lg bg-orange-600"></div>
-                                <p class="ml-2 text-s">Emergency</p>
-                            </div>
-                            <div class="mt-4 ml-4 flex">
-                                <div class="h-4 w-4 rounded-lg bg-red-600"></div>
-                                <p class="ml-2 text-s">Unpaid</p>
-                            </div>
-                            <div class="mt-4 ml-4 flex">
-                                <div class="h-4 w-4 rounded-lg bg-purple-600"></div>
-                                <p class="ml-2 text-s">Compassionate</p>
-                            </div>
-                            <div class="mt-4 ml-4 flex">
-                                <div class="h-4 w-4 rounded-lg bg-pink-600"></div>
-                                <p class="ml-2 text-s">Maternity/Paternity</p>
-                            </div>
-                            <div class="mt-4 ml-4 flex">
-                                <div class="h-4 w-4 rounded-lg bg-gray-600"></div>
-                                <p class="ml-2 text-s">Unrecorded</p>
-                            </div>
-                            <div class="mt-4 ml-4 flex">
-                                <div class="h-4 w-4 rounded-lg bg-yellow-300"></div>
-                                <p class="ml-2 text-s">Pubic Holiday</p>
+                        <!-- legend -->
+                        <div class="hidden sm:block ">
+                            <div class="flex mx-auto">
+                                <div class="mt-4 flex">
+                                    <div class="h-4 w-4 rounded-lg bg-blue-900"></div>
+                                    <p class="ml-2 text-s">Annual</p>
+                                </div>
+                                <div class="mt-4 ml-4 flex">
+                                    <div class="h-4 w-4 rounded-lg bg-teal-500"></div>
+                                    <p class="ml-2 text-s">Half Day</p>
+                                </div>
+                                <div class="mt-4 ml-4 flex">
+                                    <div class="h-4 w-4 rounded-lg bg-green-500"></div>
+                                    <p class="ml-2 text-s">Medical</p>
+                                </div>
+                                <div class="mt-4 ml-4 flex">
+                                    <div class="h-4 w-4 rounded-lg bg-orange-600"></div>
+                                    <p class="ml-2 text-s">Emergency</p>
+                                </div>
+                                <div class="mt-4 ml-4 flex">
+                                    <div class="h-4 w-4 rounded-lg bg-red-600"></div>
+                                    <p class="ml-2 text-s">Unpaid</p>
+                                </div>
+                                <div class="mt-4 ml-4 flex">
+                                    <div class="h-4 w-4 rounded-lg bg-purple-600"></div>
+                                    <p class="ml-2 text-s">Compassionate</p>
+                                </div>
+                                <div class="mt-4 ml-4 flex">
+                                    <div class="h-4 w-4 rounded-lg bg-pink-600"></div>
+                                    <p class="ml-2 text-s">Maternity/Paternity</p>
+                                </div>
+                                <div class="mt-4 ml-4 flex">
+                                    <div class="h-4 w-4 rounded-lg bg-gray-600"></div>
+                                    <p class="ml-2 text-s">Unrecorded</p>
+                                </div>
+                                <div class="mt-4 ml-4 flex">
+                                    <div class="h-4 w-4 rounded-lg bg-yellow-300"></div>
+                                    <p class="ml-2 text-s">Pubic Holiday</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -351,9 +297,6 @@
                 <!-- /End replace -->
             </div>
         </main>
-
-    </div>
-</div>
 @endsection
 
 @push('js')

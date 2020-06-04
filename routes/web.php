@@ -34,8 +34,12 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/hr/leave-calendar', 'HR\LeaveController@calendar')->name('leave.calendar');
     });
 
-    // Sys Admin
+    /** Sys Admin */
     Route::group(['middleware' => ['sysAdmin']], function () {
+        // Roles
         Route::resource('/roles', 'Admin\RolesController');
+        // New Request
+        Route::get('/new-request', 'Admin\RequestController@index')->name('request.index');
+        Route::patch('/new-request/{request}', 'Admin\RequestController@update')->name('request.update');
     });
 });
