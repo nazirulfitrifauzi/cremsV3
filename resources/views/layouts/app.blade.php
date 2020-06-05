@@ -37,7 +37,10 @@
 
 <body class="bg-blue-100 h-screen antialiased leading-none">
     <div id="app">
-        <div style="min-height: 640px" class="bg-gray-100">
+        <div style="min-height: 640px" class="bg-gray-200">
+
+        @if(is_null(auth()->user()))
+        @else
             <div class="h-screen flex overflow-hidden bg-gray-100" x-data="{ sidebarOpen: false }"
                 @keydown.window.escape="sidebarOpen = false">
                 <!-- Off-canvas menu for mobile -->
@@ -94,18 +97,22 @@
                         <div class="flex items-center h-16 flex-shrink-0 px-4 bg-gray-900 justify-center">
                             <img class="h-8 w-auto" src="{{ asset('img/logo/csc.png') }}" alt="Workflow">
                         </div>
-
+                        
                         @include('layouts.sidebar.desktop')
                         
                     </div>
                 </div>
                 <div class="flex flex-col w-0 flex-1 overflow-hidden">
                     @include('layouts.navbar.topbar')
+        @endif
 
                     @yield('content')
-                    
+
+        @if(is_null(auth()->user()))
+        @else
                 </div>
             </div>
+        @endif
         </div>
     </div>
 
