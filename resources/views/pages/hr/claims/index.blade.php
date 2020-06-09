@@ -62,29 +62,18 @@
                 <div class="mt-2 md:flex md:items-center md:justify-between">
                     <div class="flex-1 min-w-0">
                         <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:leading-9 sm:truncate">
-                            Leave
+                            Claim
                         </h2>
                     </div>
                     <span class="mt-2 sm:mt-0 inline-flex rounded-md shadow-sm">
-                        <a href="{{ route('leave.create') }}" type="button"
+                        <a href="{{ route('claim.create') }}" type="button"
                             class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150">
                             <svg class="-ml-1 mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd"
                                     d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
                                     clip-rule="evenodd"></path>
                             </svg>
-                            Apply Leave
-                        </a>
-                    </span>
-                    <span class="ml-3 mt-2 sm:mt-0 inline-flex rounded-md shadow-sm">
-                        <a href="{{ route('leave.calendar') }}" type="button"
-                            class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150">
-                            <svg class="-ml-1 mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
-                                <path
-                                    d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
-                                    clip-rule="evenodd" fill-rule="evenodd"></path>
-                            </svg>
-                            Calendar
+                            Apply Claim
                         </a>
                     </span>
                 </div>
@@ -112,19 +101,15 @@
                                             </th>
                                             <th
                                                 class="px-6 py-3 border-b border-gray-200 bg-gray-300 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
-                                                @sortablelink('reason','Reason')
+                                                @sortablelink('amount','Amount (RM)')
                                             </th>
                                             <th
                                                 class="px-6 py-3 border-b border-gray-200 bg-gray-300 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
-                                                @sortablelink('start','Start')
+                                                @sortablelink('created_at','Date Apply')
                                             </th>
                                             <th
                                                 class="px-6 py-3 border-b border-gray-200 bg-gray-300 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
-                                                @sortablelink('end','End')
-                                            </th>
-                                            <th
-                                                class="px-6 py-3 border-b border-gray-200 bg-gray-300 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
-                                                @sortablelink('days','Days')
+                                                Attachment
                                             </th>
                                             <th
                                                 class="px-6 py-3 border-b border-gray-200 bg-gray-300 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
@@ -138,60 +123,44 @@
                                         </tr>
                                     </thead>
                                     <tbody class="bg-white">
-                                        @forelse ($leave as $leaves)
+                                        @forelse ($claim as $claims)
                                             <tr class="hover:bg-blue-100 transition duration-150 ease-in-out">
                                                 @if (auth()->user()->role == '1' || auth()->user()->role == '2')
                                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-600">
-                                                        {{ $leaves->user->name }}
+                                                        {{ $claims->user->name }}
                                                     </td>
                                                 @endif
                                                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-600">
-                                                    @if($leaves->type == 'AL')
-                                                        Annual Leave
-                                                    @elseif($leaves->type == 'HL')
-                                                        Half Day
-                                                    @elseif($leaves->type == 'MC')
-                                                        Medical Leave
-                                                    @elseif($leaves->type == 'EL')
-                                                        Emergency Leave
-                                                    @elseif($leaves->type == 'UP')
-                                                        Unpaid Leave
-                                                    @elseif($leaves->type == 'CL')
-                                                        Compassionate Leave
-                                                    @elseif($leaves->type == 'M')
-                                                        Maternity Leave
-                                                    @elseif($leaves->type == 'P')
-                                                        Paternity Leave
-                                                    @elseif($leaves->type == 'X')
-                                                        Unrecorded Leave
+                                                    @if($claims->type == 'medical')
+                                                        Medical
+                                                    @elseif($claims->type == 'other')
+                                                        Others
                                                     @endif
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-normal border-b border-gray-200 text-sm leading-5 text-gray-600">
-                                                    {{ $leaves->reason }}
+                                                    {{ $claims->amount }}
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-600">
-                                                    @if($leaves->type == 'AL' && $leaves->halfDay == '1') 
-                                                        {{ date('d/m/Y, g:ia', strtotime($leaves->start) )  }}
-                                                    @else
-                                                        {{ date('d/m/Y', strtotime($leaves->start) )  }}
-                                                    @endif
+                                                    {{ date('d/m/Y', strtotime($claims->created_at) )  }}
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-600">
-                                                    @if($leaves->type == 'AL' && $leaves->halfDay == '1')
-                                                        {{ date('d/m/Y, g:ia', strtotime($leaves->end) ) }}
-                                                    @else
-                                                        {{ date('d/m/Y', strtotime($leaves->end) ) }}
-                                                    @endif
+                                                    <span class="inline-flex rounded-md shadow-sm mx-1">
+                                                        <a href="{{ asset('storage/' . $claims->attachment) }}" type="button" target="_blank"
+                                                            class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition ease-in-out duration-150">
+                                                            <svg class="-ml-0.5 mr-2 h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+                                                                <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
+                                                                <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path>
+                                                            </svg>
+                                                            {{ str_replace('/', '_', $claims->attachment)  }}
+                                                        </a>
+                                                    </span>
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-600">
-                                                    {{ floatval($leaves->days) }}
-                                                </td>
-                                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-600">
-                                                    @if($leaves->status == 0)
+                                                    @if($claims->status == 0)
                                                         <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium leading-5 bg-orange-200 text-orange-800">
                                                             Under Review
                                                         </span>
-                                                    @elseif($leaves->status == 1)
+                                                    @elseif($claims->status == 1)
                                                         <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium leading-5 bg-green-200 text-green-800">
                                                             Approved
                                                         </span>
@@ -202,12 +171,12 @@
                                                     @endif
                                                 </td>
                                                 @if (auth()->user()->role == '1' || auth()->user()->role == '2')
-                                                    @if($leaves->status == 0)
+                                                    @if($claims->status == 0)
                                                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-600">
                                                             <div class="flex justify-center">
                                                                 <span class="inline-flex rounded-md shadow-sm mx-1">
                                                                     <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-green-600 hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green active:bg-green-700 transition ease-in-out duration-150"
-                                                                    @click="approve_open('{{ $leaves->id }}', '{{ $leaves->user->name }}', '{{ $leaves->days }}', '{{ $leaves->start }}', '{{ $leaves->end }}')">
+                                                                    @click="approve_open('{{ $claims->id }}', '{{ $claims->user->name }}', '{{ $claims->type }}', '{{ $claims->amount }}', '{{ $claims->created_at }}')">
                                                                         <svg class="-ml-0.5 mr-2 h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
                                                                             <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                                                                         </svg>
@@ -216,7 +185,7 @@
                                                                 </span>
                                                                 <span class="inline-flex rounded-md shadow-sm mx-1">
                                                                     <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-red-600 hover:bg-red-500 focus:outline-none focus:border-red-700 focus:shadow-outline-red active:bg-red-700 transition ease-in-out duration-150"
-                                                                    @click="reject_open('{{ $leaves->id }}', '{{ $leaves->user->name }}', '{{ $leaves->days }}', '{{ $leaves->start }}', '{{ $leaves->end }}')">
+                                                                    @click="reject_open('{{ $claims->id }}', '{{ $claims->user->name }}', '{{ $claims->type }}', '{{ $claims->amount }}', '{{ $claims->created_at }}')">
                                                                         <svg class="-ml-0.5 mr-2 h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
                                                                             <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
                                                                         </svg>
@@ -234,7 +203,7 @@
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="8" class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-600 text-center">
+                                                <td colspan="7" class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-600 text-center">
                                                     No Data Found!
                                                 </td>
                                             </tr>
@@ -276,7 +245,7 @@
                                             </div>
                                             <div class="mt-3 text-center sm:mt-5">
                                                 <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
-                                                    Approve Leave Application?
+                                                    Approve Claim Application?
                                                 </h3>
                                                 <div class="mt-2">
                                                     <p id="app_desc" class="text-sm leading-5 text-gray-500"></p>
@@ -333,7 +302,7 @@
                                             </div>
                                             <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                                                 <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
-                                                Reject Leave Application!
+                                                Reject Claim Application!
                                                 </h3>
                                                 <div class="mt-2">
                                                     <p id="rej_desc" class="text-sm leading-5 text-gray-500"></p>
@@ -357,7 +326,7 @@
                                 </div> <!-- end reject modal -->
 
                             </div>
-                            <div class="mt-4">{{ $leave->links() }}</div>
+                            <div class="mt-4">{{ $claim->links() }}</div>
                         </div>
                     </div>
                 </div>
@@ -387,20 +356,20 @@
     function approve_modal() {
         return {
             app_show: false,
-            approve_open(id, name, days, start, end) { 
+            approve_open(id, name, type, amount, created_at) { 
                 this.app_show = true;
-                document.getElementById("app_desc").innerHTML = "" + name + " apply leave for " + parseFloat(days).toPrecision() + " days, start from " + moment(start).format('DD/MM/YYYY') + " until " + moment(end).format('DD/MM/YYYY');
+                document.getElementById("app_desc").innerHTML = "" + name + " apply for " + type + " claim, amount RM "+ parseFloat(amount).toPrecision() + " at " + moment(created_at).format('DD/MM/YYYY');
                 document.getElementById("app_button").onclick = function() {
                     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
                     $.ajax({
                         type: 'POST',
-                        url: "leave/approve/" + id,
+                        url: "claim/approve/" + id,
                         data: {'_token' : CSRF_TOKEN, '_method' : 'PATCH'},
                         dataType: 'JSON',
                         success: function (results) {
                             if (results.success === true) {
-                                window.location = "{{ route('leave.index')}}";
+                                window.location = "{{ route('claim.index')}}";
                                 setTimeout(function () {
                                     $('.notification').animate({
                                         opacity: '1'
@@ -423,20 +392,20 @@
     function reject_modal() {
         return {
             rej_show: false,
-            reject_open(id, name, days, start, end) { 
+            reject_open(id, name, type, amount, created_at) { 
                 this.rej_show = true;
-                document.getElementById("rej_desc").innerHTML = "" + name + " apply leave for " + parseFloat(days).toPrecision() + " days, start from " + moment(start).format('DD/MM/YYYY') + " until " + moment(end).format('DD/MM/YYYY');
+                document.getElementById("rej_desc").innerHTML = "" + name + " apply for " + type + " claim, amount RM "+ parseFloat(amount).toPrecision() + " at " + moment(created_at).format('DD/MM/YYYY');
                 document.getElementById("rej_button").onclick = function() {
                     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
                     $.ajax({
                         type: 'POST',
-                        url: "leave/reject/" + id,
+                        url: "claim/reject/" + id,
                         data: {'_token' : CSRF_TOKEN, '_method' : 'PATCH'},
                         dataType: 'JSON',
                         success: function (results) {
                             if (results.success === true) {
-                                window.location = "{{ route('leave.index')}}";
+                                window.location = "{{ route('claim.index')}}";
                                 setTimeout(function () {
                                     $('.notification').animate({
                                         opacity: '1'

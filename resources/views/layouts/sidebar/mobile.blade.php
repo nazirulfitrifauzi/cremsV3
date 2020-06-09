@@ -48,8 +48,8 @@
                         class="mt-1 group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-300 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150 {{ (\Request::is('hr/leave*')) ? 'text-white bg-gray-900' : 'text-gray-300 hover:text-white hover:bg-gray-700 focus:text-white' }}">
                         <span class="ml-10">Leaves</span>
                     </a>
-                    <a href="#"
-                        class="mt-1 group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-300 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                    <a href="{{ route('claim.index') }}"
+                        class="mt-1 group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-300 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150 {{ (\Request::is('hr/claim*')) ? 'text-white bg-gray-900' : 'text-gray-300 hover:text-white hover:bg-gray-700 focus:text-white' }}">
                         <span class="ml-10">Claims</span>
                     </a>
                 </div>
@@ -74,9 +74,11 @@
             <a href="{{ route('request.index') }}"
                 class="mt-1 group flex items-center px-3 py-2 text-sm leading-5 font-medium rounded-md focus:outline-none focus:bg-gray-700 transition ease-in-out duration-150 {{ (\Request::is('new-request') || \Request::is('new-request/*')) ? 'text-white bg-gray-900' : 'text-gray-600 hover:text-white hover:bg-gray-800 focus:text-white' }}">
                 New Request
-                <span class="ml-auto inline-flex items-center px-2 py-1 rounded-md text-sm font-medium leading-5 bg-red-100 text-red-800">
-                    {{ $newRequest }}
-                </span>
+                @if($newRequest !== 0)
+                    <span class="ml-auto inline-flex items-center px-2 py-1 rounded-md text-sm font-medium leading-5 bg-red-100 text-red-800">
+                        {{ $newRequest }}
+                    </span>
+                @endif
             </a>
         </div>
     </div>

@@ -4,14 +4,15 @@ namespace App\Models;
 
 use App\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Attendance extends Model
 {
+    use SoftDeletes;
+
     protected $table = 'attendances';
 
     protected $guarded = [];
-
-    public $timestamps = false;
 
     protected $dates = [
         'login_at',

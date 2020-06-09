@@ -32,6 +32,10 @@ Route::group(['middleware' => ['auth']], function () {
         Route::patch('/hr/leave/approve/{leave}', 'HR\LeaveController@approve')->name('leave.approve');
         Route::patch('/hr/leave/reject/{leave}', 'HR\LeaveController@reject')->name('leave.reject');
         Route::get('/hr/leave-calendar', 'HR\LeaveController@calendar')->name('leave.calendar');
+        // Claims
+        Route::resource('/hr/claim', 'HR\ClaimController');
+        Route::patch('/hr/claim/approve/{claim}', 'HR\ClaimController@approve')->name('claim.approve');
+        Route::patch('/hr/claim/reject/{claim}', 'HR\ClaimController@reject')->name('claim.reject');
     });
 
     /** Sys Admin */

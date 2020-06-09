@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLeaveTable extends Migration
+class CreateClaimTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreateLeaveTable extends Migration
      */
     public function up()
     {
-        Schema::create('leaves', function (Blueprint $table) {
+        Schema::create('claims', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id');
-            $table->string('reason');
             $table->string('type');
-            $table->dateTime('start');
-            $table->dateTime('end');
-            $table->decimal('days', 2, 1);
+            $table->decimal('amount', 18, 2);
+            $table->string('attachment');
             $table->integer('status')->default(0);
             $table->timestamps();
             $table->softDeletes();
@@ -34,6 +32,6 @@ class CreateLeaveTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('leaves');
+        Schema::dropIfExists('claims');
     }
 }

@@ -7,21 +7,22 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Kyslik\ColumnSortable\Sortable;
 
-class Leave extends Model
+class Claim extends Model
 {
     use Sortable;
     use SoftDeletes;
 
-    protected $table = 'leaves';
+    protected $table = 'claims';
 
     protected $guarded = [];
 
     protected $dates = [
-        'start',
-        'end',
+        'created_at',
+        'updated_at',
+        'deleted_at',
     ];
 
-    public $sortable = ['user_id', 'reason', 'type', 'start', 'end', 'days', 'status'];
+    public $sortable = ['user_id', 'type', 'amount', 'status', 'created_at', 'updated_at', 'deleted_at'];
 
     public function user()
     {
