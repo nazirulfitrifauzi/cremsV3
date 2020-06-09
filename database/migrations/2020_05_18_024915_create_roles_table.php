@@ -21,6 +21,8 @@ class CreateRolesTable extends Migration
             $table->integer('leaves')->default(0);
             $table->integer('claims')->default(0);
             $table->integer('roles')->default(0);
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

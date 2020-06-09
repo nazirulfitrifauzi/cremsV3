@@ -53,7 +53,7 @@
                             x-transition:enter-start="opacity-0"
                             x-transition:enter-end="opacity-100" 
                             x-transition:leave="transition-opacity ease-linear duration-300"
-                            x-transition:leave-start="opacity-100" \
+                            x-transition:leave-start="opacity-100" 
                             x-transition:leave-end="opacity-0" 
                             class="fixed inset-0" style="display: none;">
                             <div class="absolute inset-0 bg-gray-600 opacity-75"></div>
@@ -108,6 +108,14 @@
 
                     @yield('content')
 
+                    <div class="hidden sm:block flex-shrink-0 flex bg-gray-300 p-4">
+                        <div class="my-2 flex-1">
+                            <h3 class="group flex items-center px-3 text-xs leading-4 font-semibold text-gray-500 uppercase tracking-wider">
+                                &copy;1999-{{ now()->year }} CREATIVE SYSTEM CONSULTANT SDN. BHD.
+                            </h3>
+                        </div>
+                    </div>
+    
         @if(is_null(auth()->user()))
         @else
                 </div>
@@ -115,6 +123,8 @@
         @endif
         </div>
     </div>
+
+    
 
     <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>

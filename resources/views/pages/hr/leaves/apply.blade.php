@@ -91,7 +91,7 @@
                                 <div class="text-lg leading-6 ">
                                     <label for="reason" class="sr-only">Reason</label>
                                     <div class="relative rounded-md shadow-sm font-medium text-gray-900">
-                                        <input id="reason" name="reason"
+                                        <input id="reason" name="reason" value="{{ old('reason') }}"
                                             class="form-input block w-full sm:text-sm sm:leading-5 @error('reason') border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red @enderror"
                                             placeholder="Reason" />
                                         @error('reason')

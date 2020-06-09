@@ -20,6 +20,8 @@ class CreateAttendancesTable extends Migration
             $table->string('location');
             $table->string('remarks')->nullable();
             $table->dateTime('login_at');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -30,8 +32,6 @@ class CreateAttendancesTable extends Migration
      */
     public function down()
     {
-        Schema::table('attendances', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('attendances');
     }
 }
