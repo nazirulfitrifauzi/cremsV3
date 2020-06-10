@@ -65,5 +65,6 @@ class Kernel extends HttpKernel
 
         'sysAdmin' => \App\Http\Middleware\CheckSysAdmin::class,
         'staff' => \App\Http\Middleware\CheckStaff::class,
+        'profile' => \App\Http\Middleware\CheckProfile::class,
     ];
 }

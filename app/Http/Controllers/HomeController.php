@@ -91,6 +91,7 @@ class HomeController extends Controller
             'postcode'            => $request->get('postcode'),
             'city'                => $request->get('city'),
             'state'               => $request->get('state'),
+            'completed'           => 1,
         ]);
 
         $profile->save();
