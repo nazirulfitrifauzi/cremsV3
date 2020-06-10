@@ -38,8 +38,17 @@
                         class="max-w-xs flex items-center text-sm rounded-full focus:outline-none focus:shadow-outline"
                         id="user-menu" aria-label="User menu" aria-haspopup="true" x-bind:aria-expanded="open"
                         aria-expanded="false">
-                        <img class="h-8 w-8 rounded-full"
-                            src="{{ asset('img/avatar/').'/'.auth()->user()->avatar }}" alt="">
+                        @if(auth()->user()->avatar == NULL)
+                            <span class="h-8 2-8 rounded-full overflow-hidden bg-gray-500">
+                                <svg class="h-full w-full text-gray-300" fill="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path
+                                        d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                                </svg>
+                            </span>
+                        @else
+                            <img src="{{ asset('storage/Avatar/' . auth()->user()->avatar) }}" class="h-8 w-8 rounded-full">
+                        @endif
                     </button>
                 </div>
                 <div x-show="open" x-description="Profile dropdown panel, show/hide based on dropdown state."
@@ -53,7 +62,7 @@
                     style="display: none;">
                     <div class="py-1 rounded-md bg-white shadow-xs" role="menu" aria-orientation="vertical"
                         aria-labelledby="user-menu">
-                        <a href="#"
+                        <a href="{{ route('profile', auth()->user()->id) }}"
                             class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150"
                             role="menuitem">Your Profile</a>
                         <a href="#"

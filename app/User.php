@@ -5,6 +5,7 @@ namespace App;
 use App\Models\Attendance;
 use App\Models\Claim;
 use App\Models\Leave;
+use App\Models\Profile;
 use App\Models\Role;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -34,6 +35,11 @@ class User extends Authenticatable
     ];
 
     public $sortable = ['name', 'email', 'role', 'avatar', 'active'];
+
+    public function profiles()
+    {
+        return $this->hasOne(Profile::class, 'user_id', 'id');
+    }
 
     public function attendances()
     {

@@ -21,6 +21,9 @@ Auth::routes();
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/home', 'HomeController@index')->name('home');
+    // Profile
+    Route::get('/profile/{profile}', 'HomeController@profile')->name('profile');
+    Route::patch('/profile-update/{profile}', 'HomeController@updateProfile')->name('profile.update');
 
     /** Human Resources **/
     Route::group(['middleware' => ['staff']], function () {
