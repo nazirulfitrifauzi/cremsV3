@@ -52,7 +52,17 @@
                         @endphp
                                 <div class="my-2 px-2 w-full overflow-hidden sm:my-2 sm:px-2 sm:w-full md:my-4 md:px-4 md:w-1/2 lg:my-3 lg:px-3 lg:w-1/3 xl:my-3 xl:px-3 xl:w-1/3">
                                     <div class="border {{ ($check == true) ? 'border-green-300 bg-green-200' : 'border-red-300 bg-red-200' }} md:flex bg-white rounded-lg p-6">
-                                        <img class="h-16 w-16 md:h-20 md:w-20 rounded-full mx-auto md:mx-0" src="{{ asset('img/avatar/').'/'.auth()->user()->avatar }}">
+                                        @if($staffs->avatar == NULL)
+                                            <span class="h-16 w-16 overflow-hidden bg-gray-500 md:h-20 md:w-20 rounded-full mx-auto md:mx-0">
+                                                <svg class="h-full w-full text-gray-300" fill="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path
+                                                        d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                                                </svg>
+                                            </span>
+                                        @else
+                                            <img src="{{ asset('storage/Avatar/' . $staffs->avatar) }}" class="h-16 w-16 md:h-20 md:w-20 rounded-full mx-auto md:mx-0">
+                                        @endif
                                         <div class="md:ml-6 text-center md:text-left">
                                             <h2 class="text-lg">{{ $staffs->name }}</h2>
                                             <div class="mt-1 text-gray-600 text-sm">Location: {{ $staffs->attendances()->whereDate('login_at',$today)->value('location') }}</div>

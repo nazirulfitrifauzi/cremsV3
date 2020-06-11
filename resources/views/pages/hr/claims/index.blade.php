@@ -215,6 +215,7 @@
                                 <div 
                                     class="fixed bottom-0 inset-x-0 px-4 pb-6 sm:inset-0 sm:p-0 sm:flex sm:items-center sm:justify-center"
                                     x-show="approve_isOpen()"
+                                    x-cloak
                                 >
                                     <div class="fixed inset-0 transition-opacity"
                                         x-show="approve_isOpen()"
@@ -272,6 +273,7 @@
                                 <div 
                                     class="fixed bottom-0 inset-x-0 px-4 pb-4 sm:inset-0 sm:flex sm:items-center sm:justify-center"
                                     x-show="reject_isOpen()"
+                                    x-cloak
                                 >
                                     <div class="fixed inset-0 transition-opacity"
                                         x-show="reject_isOpen()"

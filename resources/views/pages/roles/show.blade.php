@@ -88,7 +88,18 @@
                                     Human Resources
                                 </dt>
                                 <dd
-                                    class="mt-1 text-sm leading-5 text-gray-900 grid grid-cols-2 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-32">
+                                    class="mt-1 text-sm leading-5 text-gray-900 grid grid-cols-2 sm:mt-0 sm:grid sm:grid-cols-3 lg:grid-cols-4 sm:col-gap-40 row-gap-4">
+                                    <div class="relative flex items-start">
+                                        <div class="absolute flex items-center h-5">
+                                            <input id="staff" name="staff" type="checkbox" value="1"
+                                                class="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
+                                                {{ ($role->staff == 1) ? 'checked' : '' }} />
+                                        </div>
+                                        <div class="pl-8 text-sm leading-5">
+                                            <label for="staff"
+                                                class="font-medium text-gray-700">Staff</label>
+                                        </div>
+                                    </div>
                                     <div class="relative flex items-start">
                                         <div class="absolute flex items-center h-5">
                                             <input id="attendances" name="attendances" type="checkbox" value="1"
@@ -175,7 +186,7 @@
             </span>
 
             <!-- delete modal -->
-            <div x-show="open"
+            <div x-show="open" x-cloak
                 class="fixed bottom-0 inset-x-0 px-4 pb-4 sm:inset-0 sm:flex sm:items-center sm:justify-center">
                 <div x-show="open" x-description="Background overlay, show/hide based on modal state."
                     x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0"

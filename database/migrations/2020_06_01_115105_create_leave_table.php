@@ -20,7 +20,7 @@ class CreateLeaveTable extends Migration
             $table->string('type');
             $table->dateTime('start');
             $table->dateTime('end');
-            $table->decimal('days', 2, 1);
+            $table->decimal('days', 3, 1);
             $table->integer('status')->default(0);
             $table->timestamps();
             $table->softDeletes();

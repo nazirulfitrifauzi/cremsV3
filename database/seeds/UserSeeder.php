@@ -17,7 +17,28 @@ class UserSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => Hash::make('Cscsb@45789'),
             'role' => 1,
-            'avatar' => 'avatar.jpg',
+            'active' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        DB::table('users')->insert([
+            'name' => 'Irfan bin Hashim',
+            'email' => 'irfan@csc.net.my',
+            'email_verified_at' => now(),
+            'password' => Hash::make('Cscsb@45789'),
+            'role' => 2,
+            'active' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        DB::table('users')->insert([
+            'name' => 'Nazirul Fitri bin Fauzi',
+            'email' => 'nazirul@csc.net.my',
+            'email_verified_at' => now(),
+            'password' => Hash::make('Cscsb@45789'),
+            'role' => 3,
             'active' => 1,
             'created_at' => now(),
             'updated_at' => now()

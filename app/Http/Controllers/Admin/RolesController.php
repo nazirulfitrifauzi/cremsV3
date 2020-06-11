@@ -31,6 +31,7 @@ class RolesController extends Controller
         $role = new Role([
             'title'             => $request->get('title'),
             'description'       => $request->get('description'),
+            'staff'             => ($request->missing('staff')) ? 0 : 1,
             'attendances'       => ($request->missing('attendances')) ? 0 : 1,
             'leaves'            => ($request->missing('leaves')) ? 0 : 1,
             'claims'            => ($request->missing('claims')) ? 0 : 1,
@@ -56,6 +57,7 @@ class RolesController extends Controller
     public function update(Request $request, $id)
     {
         Role::whereId($id)->update([
+            'staff'             => ($request->missing('staff')) ? 0 : 1,
             'attendances'       => ($request->missing('attendances')) ? 0 : 1,
             'leaves'            => ($request->missing('leaves')) ? 0 : 1,
             'claims'            => ($request->missing('claims')) ? 0 : 1,

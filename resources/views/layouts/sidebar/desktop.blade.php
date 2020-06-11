@@ -30,6 +30,7 @@
                         </path>
                     </svg>
                     Human Resources
+                    <!--<span class="ml-auto h-3 w-3 rounded-full text-white shadow-solid bg-red-400"></span> //notification buble-->
                     <svg x-show="!open" 
                         class="ml-auto mr-3 h-6 w-6 text-gray-400 group-hover:text-gray-300 group-focus:text-gray-300 transition ease-in-out duration-150" 
                         fill="currentColor" viewBox="0 0 20 20"> <!-- chevron right -->
@@ -42,6 +43,10 @@
                 </a>
 
                 <div x-show="open">
+                    <a href="#"
+                        class="{{ (auth()->user()->roles->staff == 1) ? 'block' : 'hidden' }} mt-1 group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-300 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150 {{ (\Request::is('hr/staff')) ? 'text-white bg-gray-900' : 'text-gray-300 hover:text-white hover:bg-gray-700 focus:text-white' }}">
+                        <span class="ml-10">Staff</span>
+                    </a>
                     <a href="{{ route('attendances.index') }}"
                         class="{{ (auth()->user()->roles->attendances == 1) ? 'block' : 'hidden' }} mt-1 group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-300 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150 {{ (\Request::is('hr/attendance')) ? 'text-white bg-gray-900' : 'text-gray-300 hover:text-white hover:bg-gray-700 focus:text-white' }}">
                         <span class="ml-10">Attendances</span>
@@ -59,8 +64,8 @@
         </div>
     </nav>
 </div>
-<div class="flex-shrink-0 flex bg-gray-700 p-4">
-    <div class="{{ (auth()->user()->roles->roles == 1) ? 'block' : 'hidden' }} my-2 flex-1">
+<div class="{{ (auth()->user()->roles->roles == 1) ? 'block' : 'hidden' }} flex-shrink-0 flex bg-gray-700 p-4">
+    <div class="my-2 flex-1">
         <h3 class="group flex items-center px-3 text-xs leading-4 font-semibold text-gray-400 uppercase tracking-wider" id="projects-headline">
             <svg class="mr-3 h-6 w-6 text-gray-300 group-hover:text-gray-300 group-focus:text-gray-300 transition ease-in-out duration-150"
                 fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">

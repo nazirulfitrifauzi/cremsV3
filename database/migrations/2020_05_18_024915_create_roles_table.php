@@ -17,6 +17,7 @@ class CreateRolesTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('description');
+            $table->integer('staff')->default(0);
             $table->integer('attendances')->default(0);
             $table->integer('leaves')->default(0);
             $table->integer('claims')->default(0);
