@@ -31,8 +31,11 @@
     <!-- Alpine js IE support -->
     <script type="module" src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"></script>
     <script nomodule src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine-ie11.min.js" defer></script>
+    
+    <style>
+        [x-cloak] { display: none; }
+    </style>
 
-    @yield('style')
 </head>
 
 <body class="bg-blue-100 h-screen antialiased leading-none">
@@ -108,13 +111,7 @@
 
                     @yield('content')
 
-                    <div class="hidden sm:block flex-shrink-0 flex bg-gray-300 p-4">
-                        <div class="my-2 flex-1">
-                            <h3 class="group flex items-center px-3 text-xs leading-4 font-semibold text-gray-500 uppercase tracking-wider">
-                                &copy;1999-{{ now()->year }} CREATIVE SYSTEM CONSULTANT SDN. BHD.
-                            </h3>
-                        </div>
-                    </div>
+                    @include('layouts.navbar.footer')
     
         @if(is_null(auth()->user()))
         @else

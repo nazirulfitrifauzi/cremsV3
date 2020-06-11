@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Attendance;
 use App\Models\Profile;
 use App\User;
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use Storage;
 use Illuminate\Validation\Rule;
@@ -28,22 +30,35 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if (auth()->user()->role == 2 || auth()->user()->role == 3) {
+        if (auth()->user()->role == 4) { // client
+            return view('home');
+        } else { //staff
+            //attendance check
             $id = auth()->user()->id;
             $today = now()->toDateString();
             $check = Attendance::whereUserId($id)
                 ->whereDate('login_at', $today)
                 ->exists();
-            return view('home', compact('check'));
-        } else {
-            return view('home');
+
+            //stats
+            /** attendance */
+            $startDate = Carbon::now()->firstOfMonth();
+            $endDate = Carbon::now()->add(1, 'month')->firstOfMonth();
+            $period = $startDate->diffInDaysFiltered(function (Carbon $date) {
+                return !$date->isWeekend();
+            }, $endDate);
+            $attend = Attendance::whereUser_id(auth()->user()->id)->whereBetween('login_at', [$startDate, $endDate])->count();
+            return view('home', compact('check', 'attend', 'period'));
         }
     }
 
     public function profile($id)
     {
         $profile = Profile::whereUser_id($id)->first();
-        return view('profile', compact('profile'));
+
+        $start_work = Carbon::parse("2016-08-15");
+        $service_period = $start_work->diffForHumans(['parts' => 4]);
+        return view('profile', compact('profile', 'start_work', 'service_period'));
     }
 
     public function updateProfile(Request $request)

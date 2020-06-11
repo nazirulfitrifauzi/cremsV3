@@ -29,22 +29,23 @@ class LeaveController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'reason'            => ['required'],
-            'type'              => ['required'],
-            'start'             => ['required'],
-            'end'               => ['required']
+            'reason'            => 'required|string',
+            'type'              => 'required',
+            'halfday'           => 'required_if:type,==,HL',
+            'start'             => 'required',
+            'end'               => 'required'
         ]);
 
         $userId = auth()->user()->id;
 
         if ($request->get('type') == 'HL') {
-            if ($request->get('am') == '1') {
+            if ($request->get('halfday') == 'am') {
                 $start = $request->get('start') . ' 09:00:00';
                 $end = $request->get('end') . ' 13:00:00';
 
                 $n_start = Carbon::createFromFormat('Y-m-d H:i:s', $start);
                 $n_end = Carbon::createFromFormat('Y-m-d H:i:s', $end);
-            } else if ($request->get('pm') == '1') {
+            } else if ($request->get('halfday') == 'pm') {
                 $start = $request->get('start') . ' 14:00:00';
                 $end = $request->get('end') . ' 18:00:00';
 

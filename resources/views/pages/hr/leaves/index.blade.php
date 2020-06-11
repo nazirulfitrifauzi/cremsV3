@@ -170,14 +170,14 @@
                                                     {{ $leaves->reason }}
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-600">
-                                                    @if($leaves->type == 'AL' && $leaves->halfDay == '1') 
+                                                    @if($leaves->type == 'HL') 
                                                         {{ date('d/m/Y, g:ia', strtotime($leaves->start) )  }}
                                                     @else
                                                         {{ date('d/m/Y', strtotime($leaves->start) )  }}
                                                     @endif
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-600">
-                                                    @if($leaves->type == 'AL' && $leaves->halfDay == '1')
+                                                    @if($leaves->type == 'HL')
                                                         {{ date('d/m/Y, g:ia', strtotime($leaves->end) ) }}
                                                     @else
                                                         {{ date('d/m/Y', strtotime($leaves->end) ) }}
@@ -246,6 +246,7 @@
                                 <div 
                                     class="fixed bottom-0 inset-x-0 px-4 pb-6 sm:inset-0 sm:p-0 sm:flex sm:items-center sm:justify-center"
                                     x-show="approve_isOpen()"
+                                    x-cloak
                                 >
                                     <div class="fixed inset-0 transition-opacity"
                                         x-show="approve_isOpen()"
@@ -303,6 +304,7 @@
                                 <div 
                                     class="fixed bottom-0 inset-x-0 px-4 pb-4 sm:inset-0 sm:flex sm:items-center sm:justify-center"
                                     x-show="reject_isOpen()"
+                                    x-cloak
                                 >
                                     <div class="fixed inset-0 transition-opacity"
                                         x-show="reject_isOpen()"

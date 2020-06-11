@@ -57,8 +57,8 @@
         </div>
     </nav>
 </div>
-<div class="flex-shrink-0 flex bg-gray-700 p-4">
-    <div class="{{ (auth()->user()->roles->roles == 1) ? 'block' : 'hidden' }} my-2 flex-1">
+<div class="{{ (auth()->user()->roles->roles == 1) ? 'block' : 'hidden' }} flex-shrink-0 flex bg-gray-700 p-4">
+    <div class="my-2 flex-1">
         <h3 class="group flex items-center px-3 text-xs leading-4 font-semibold text-gray-400 uppercase tracking-wider" id="projects-headline">
             <svg class="mr-3 h-6 w-6 text-gray-300 group-hover:text-gray-300 group-focus:text-gray-300 transition ease-in-out duration-150"
                 fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">

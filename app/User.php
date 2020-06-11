@@ -24,6 +24,9 @@ class User extends Authenticatable
      *
      * @var array
      */
+
+    protected $table = 'users';
+
     protected $guarded = [];
 
     protected $hidden = [

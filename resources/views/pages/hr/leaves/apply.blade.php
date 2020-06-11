@@ -105,9 +105,20 @@
                                             </div>
                                         @enderror
                                     </div>
+                                    @error('reason')
+                                        <p class="text-red-500 text-xs italic mt-4">
+                                            {{ $message }}
+                                        </p>
+                                    @enderror
                                 </div>
                             </div>
-                            <div class="px-4 py-5 sm:p-0" x-data="{ open: ''}">
+                            <div class="px-4 py-5 sm:p-0" 
+                                @if($errors->has('halfday') && old('type') == 'HL')
+                                    x-data="{ open: 'HL'}"
+                                @else
+                                    x-data="{ open: ''}"
+                                @endif
+                            >
                                 <dl>
                                     <div class="sm:grid sm:grid-cols-4 sm:gap-4 sm:px-6 sm:py-5">
                                         <dt class="text-sm leading-5 font-medium text-gray-500">
@@ -117,15 +128,15 @@
                                             class="mt-1 text-sm leading-5 text-gray-900 grid grid-cols-2 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-32">
                                             <div class="max-w-xs rounded-md shadow-sm">
                                                 <select id="type" name="type" class="block form-select transition duration-150 ease-in-out sm:text-sm sm:leading-5" @change="open = $event.target.value">
-                                                    <option value="AL">Annual Leave</option>
-                                                    <option x-bind:value="'HL'">Halfday (Annual Leave)</option>
-                                                    <option value="MC">Medical Leave</option>
-                                                    <option value="EL">Emergency Leave</option>
-                                                    <option value="UP">Unpaid Leave</option>
-                                                    <option value="CL">Compassionate Leave</option>
-                                                    <option value="M">Maternity Leave</option>
-                                                    <option value="P">Paternity Leave</option>
-                                                    <option value="X">Unrecorded Leave</option>
+                                                    <option value="AL" {{ (old('type') == 'AL') ? 'selected' : '' }}>Annual Leave</option>
+                                                    <option x-bind:value="'HL'" {{ (old('type') == 'HL') ? 'selected' : '' }}>Halfday (Annual Leave)</option>
+                                                    <option value="MC" {{ (old('type') == 'MC') ? 'selected' : '' }}>Medical Leave</option>
+                                                    <option value="EL" {{ (old('type') == 'EL') ? 'selected' : '' }}>Emergency Leave</option>
+                                                    <option value="UP" {{ (old('type') == 'UP') ? 'selected' : '' }}>Unpaid Leave</option>
+                                                    <option value="CL" {{ (old('type') == 'CL') ? 'selected' : '' }}>Compassionate Leave</option>
+                                                    <option value="M" {{ (old('type') == 'M') ? 'selected' : '' }}>Maternity Leave</option>
+                                                    <option value="P" {{ (old('type') == 'P') ? 'selected' : '' }}>Paternity Leave</option>
+                                                    <option value="X" {{ (old('type') == 'X') ? 'selected' : '' }}>Unrecorded Leave</option>
                                                 </select>
                                             </div>
                                         </dd>
@@ -134,25 +145,25 @@
                                         <dt class="text-sm leading-5 font-medium text-gray-500">
                                             Halfday
                                         </dt>
-                                        <dd
-                                            class="mt-1 text-sm leading-5 text-gray-900 grid grid-cols-1 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-32">
-                                            <div class="relative flex items-start">
-                                                <div class="absolute flex items-center h-5">
-                                                    <input id="am" name="am" type="checkbox" value="1"
-                                                        class="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out" />
+                                        <dd class="mt-1 text-sm leading-5 text-gray-900 grid grid-cols-1 sm:mt-0 sm:grid sm:grid-cols-3 sm:col-span-2">
+                                            <div class="mt-0">
+                                                <div class="flex items-center">
+                                                    <input id="halfday_am" name="halfday" type="radio" value="am" class="form-radio h-4 w-4 text-indigo-600 transition duration-150 ease-in-out" />
+                                                    <label for="halfday_am" class="ml-3">
+                                                        <span class="block text-sm leading-5 font-medium text-gray-700">AM</span>
+                                                    </label>
                                                 </div>
-                                                <div class="pl-8 text-sm leading-5">
-                                                    <label for="am" class="font-medium text-gray-700">AM</label>
+                                                <div class="mt-4 flex items-center">
+                                                    <input id="halfday_pm" name="halfday" type="radio" value="pm" class="form-radio h-4 w-4 text-indigo-600 transition duration-150 ease-in-out" />
+                                                    <label for="halfday_pm" class="ml-3">
+                                                        <span class="block text-sm leading-5 font-medium text-gray-700">PM</span>
+                                                    </label>
                                                 </div>
-                                            </div>
-                                            <div class="relative flex items-start">
-                                                <div class="absolute flex items-center h-5">
-                                                    <input id="pm" name="pm" type="checkbox" value="1"
-                                                        class="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out" />
-                                                </div>
-                                                <div class="pl-8 text-sm leading-5">
-                                                    <label for="pm" class="font-medium text-gray-700">PM</label>
-                                                </div>
+                                                @error('halfday')
+                                                    <p class="text-red-500 text-xs italic mt-4">
+                                                        {{ $message }}
+                                                    </p>
+                                                @enderror
                                             </div>
                                         </dd>
                                     </div>
@@ -160,19 +171,31 @@
                                         <dt class="text-sm leading-5 font-medium text-gray-500">
                                             Leave Date
                                         </dt>
-                                        <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-32">
-                                            <div class="max-w-xs mt-2 sm:mt-0">
+                                        <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:grid sm:col-span-2 sm:col-gap-4 sm:grid-cols-2">
+                                            <div class="w-full mt-2 sm:mt-0">
                                                 <label for="start" class="text-sm leading-5 font-medium text-gray-500">From</label>
-                                                <input id="start" name="start" type="date" value=""
-                                                class="mt-1 form-input block py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('start') border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red @enderror" />
+                                                <input id="start" name="start" type="date" value="" min="{{ now()->add(3,'day')->format('Y-m-d') }}"
+                                                class="mt-1 w-full form-input block py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('start') border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red @enderror" />
+                                                @error('start')
+                                                    <p class="text-red-500 text-xs italic mt-4">
+                                                        {{ $message }}
+                                                    </p>
+                                                @enderror
                                             </div>
-                                            <div class="max-w-xs mt-2 sm:mt-0">
+                                            <div class="w-full w-full mt-2 sm:mt-0">
                                                 <label for="end" class="text-sm leading-5 font-medium text-gray-500">To</label>
-                                                <input id="end" name="end" type="date" value=""
-                                                class="mt-1 form-input block py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('end') border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red @enderror" />
+                                                <input id="end" name="end" type="date" value="" min="{{ now()->add(3,'day')->format('Y-m-d') }}"
+                                                class="mt-1 w-full form-input block py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('end') border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red @enderror" />
+                                                @error('end')
+                                                    <p class="text-red-500 text-xs italic mt-4">
+                                                        {{ $message }}
+                                                    </p>
+                                                @enderror
                                             </div>
                                         </dd>
+                                        
                                     </div>
+                                    
                                 </dl>
                             </div>
                             <div class="px-4 py-5 border-t border-gray-200 bg-gray-200 sm:px-6">
