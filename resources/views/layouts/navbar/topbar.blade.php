@@ -20,7 +20,8 @@
         </div>
         <div class="ml-4 flex items-center md:ml-6">
             <h3 class="hidden sm:block text-base font-semibold text-gray-600">
-                {{ ucwords(strtolower(implode(' ', array_slice(explode(' ', auth()->user()->name), 0, 2)))) }}
+                {{-- {{ ucwords(strtolower(implode(' ', array_slice(explode(' ', auth()->user()->name), 0, 2)))) }} --}}
+                {{ ucwords(strtolower(auth()->user()->name)) }}
             </h3>
             <!-- Profile dropdown -->
             <div @click.away="open = false" class="ml-3 relative" x-data="{ open: false }">
