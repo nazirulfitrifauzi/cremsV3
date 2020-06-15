@@ -101,7 +101,7 @@
                                 <table class="min-w-full">
                                     <thead>
                                         <tr>
-                                            @if (auth()->user()->role == '1' || auth()->user()->role == '2')
+                                            @if (auth()->user()->ual == '1' || auth()->user()->ual == '2')
                                                 <th class="px-6 py-3 border-b border-gray-200 bg-gray-300 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                                                     @sortablelink('user.name','Name')
                                                 </th>
@@ -130,7 +130,7 @@
                                                 class="px-6 py-3 border-b border-gray-200 bg-gray-300 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                                                 @sortablelink('status','Status')
                                             </th>
-                                            @if (auth()->user()->role == '1' || auth()->user()->role == '2')
+                                            @if (auth()->user()->ual == '1' || auth()->user()->ual == '2')
                                                 <th class="px-6 py-3 border-b border-gray-200 bg-gray-300 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider text-center">
                                                     Action
                                                 </th>
@@ -140,7 +140,7 @@
                                     <tbody class="bg-white">
                                         @forelse ($leave as $leaves)
                                             <tr class="hover:bg-blue-100 transition duration-150 ease-in-out">
-                                                @if (auth()->user()->role == '1' || auth()->user()->role == '2')
+                                                @if (auth()->user()->ual == '1' || auth()->user()->ual == '2')
                                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-600">
                                                         {{ $leaves->user->name }}
                                                     </td>
@@ -201,7 +201,7 @@
                                                         </span>
                                                     @endif
                                                 </td>
-                                                @if (auth()->user()->role == '1' || auth()->user()->role == '2')
+                                                @if (auth()->user()->ual == '1' || auth()->user()->ual == '2')
                                                     @if($leaves->status == 0)
                                                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-600">
                                                             <div class="flex justify-center">

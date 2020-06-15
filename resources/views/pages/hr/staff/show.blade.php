@@ -60,7 +60,7 @@
         <div class="mt-2 md:flex md:items-center md:justify-between">
             <div class="flex-1 min-w-0">
                 <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:leading-9 sm:truncate">
-                    Profile
+                    Staff Profile
                 </h2>
             </div>
         </div>
@@ -69,7 +69,7 @@
         <!-- Replace with your content -->
         <div class="py-4">
             <form class="bg-white shadow overflow-hidden px-8 py-4 sm:rounded-lg"
-                action="{{ route('profile.update', auth()->user()->id) }}" method="POST" enctype="multipart/form-data">
+                action="{{ route('staff.update', $staff->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PATCH')
 
@@ -79,7 +79,7 @@
                             Profile Information
                         </h3>
                         <p class="mt-1 text-sm leading-5 text-gray-500">
-                            This is your login information.
+                            This is staff login information.
                         </p>
                     </div>
                     <div class="mt-4 grid grid-cols-1 row-gap-6 col-gap-4 sm:grid-cols-6 border-t border-gray-200 pt-4">
@@ -90,31 +90,20 @@
                             <div class="mt-2 flex items-center">
                                 <input type="file" name="avatar" id="avatar" class="hidden" />
                                 <span id="avatar_default"
-                                    class="{{ (auth()->user()->avatar !== NULL) ? 'hidden' : '' }} h-12 2-12 sm:h-32 sm:w-32 rounded-full overflow-hidden bg-gray-500 {{ ($errors->get('avatar') ? 'border-4 border-red-300 ' : '') }}">
+                                    class="{{ ($staff->user->avatar !== NULL) ? 'hidden' : '' }} h-12 2-12 sm:h-32 sm:w-32 rounded-full overflow-hidden bg-gray-500">
                                     <svg class="h-full w-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">
                                         <path
                                             d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
                                     </svg>
                                 </span>
                                 <img id="avatar_uploaded" src=" 
-                                    @if(auth()->user()->avatar !== NULL) 
-                                        {{ asset('storage/Avatar/' . auth()->user()->avatar) }}
+                                    @if($staff->user->avatar !== NULL) 
+                                        {{ asset('storage/Avatar/' . $staff->user->avatar) }}
                                     @else
                                     @endif
                                     "
-                                    class="{{ (auth()->user()->avatar !== NULL) ? '' : 'hidden' }} h-12 2-12 sm:h-32 sm:w-32 rounded-full overflow-hidden">
-                                <span class="ml-5 rounded-md shadow-sm">
-                                    <button type="button" id="avatar_button"
-                                        class="py-2 px-3 border border-gray-300 rounded-md text-sm leading-4 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out">
-                                        Change
-                                    </button>
-                                </span>
+                                    class="{{ ($staff->user->avatar !== NULL) ? '' : 'hidden' }} h-12 2-12 sm:h-32 sm:w-32 rounded-full overflow-hidden">
                             </div>
-                            @error('avatar')
-                            <p class="text-red-500 text-xs italic mt-4">
-                                {{ $message }}
-                            </p>
-                            @enderror
                         </div>
                         <div class="sm:col-span-4">
                             <label for="first_name" class="block text-sm font-medium leading-5 text-gray-700">
@@ -122,14 +111,9 @@
                             </label>
                             <div class="mt-1 rounded-md shadow-sm">
                                 <input id="name" name="name"
-                                    class="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5 {{ ($errors->get('name') ? 'border-red-300 ' : 'border-gray-300 ') }}"
-                                    value="{{ auth()->user()->name }}" />
+                                    class="form-input block w-full transition duration-150 bg-gray-300 ease-in-out sm:text-sm sm:leading-5 "
+                                    value="{{ $staff->user->name }}" disabled />
                             </div>
-                            @error('name')
-                            <p class="text-red-500 text-xs italic mt-4">
-                                {{ $message }}
-                            </p>
-                            @enderror
                         </div>
 
                         <div class="sm:col-span-2">
@@ -138,14 +122,9 @@
                             </label>
                             <div class="mt-1 rounded-md shadow-sm">
                                 <input id="email" name="email" type="email"
-                                    class="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5 {{ ($errors->get('email') ? 'border-red-300 ' : 'border-gray-300 ') }}"
-                                    value="{{ auth()->user()->email }}" />
+                                    class="form-input block w-full transition duration-150 bg-gray-300 ease-in-out sm:text-sm sm:leading-5"
+                                    value="{{ $staff->user->email }}" disabled/>
                             </div>
-                            @error('email')
-                            <p class="text-red-500 text-xs italic mt-4">
-                                {{ $message }}
-                            </p>
-                            @enderror
                         </div>
 
                         <div class="sm:col-span-2">
@@ -154,14 +133,9 @@
                             </label>
                             <div class="mt-1 rounded-md shadow-sm">
                                 <input id="phone" name="phone"
-                                    class="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5  {{ ($errors->get('phone') ? 'border-red-300 ' : 'border-gray-300 ') }}"
-                                    value="{{ auth()->user()->phone }}" />
+                                    class="form-input block w-full transition duration-150 bg-gray-300 ease-in-out sm:text-sm sm:leading-5"
+                                    value="{{ $staff->user->phone }}" disabled/>
                             </div>
-                            @error('phone')
-                            <p class="text-red-500 text-xs italic mt-4">
-                                {{ $message }}
-                            </p>
-                            @enderror
                         </div>
 
                     </div>
@@ -184,7 +158,7 @@
                             <div class="mt-1 rounded-md shadow-sm">
                                 <input id="ic_no" name="ic_no"
                                     class="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5 {{ ($errors->get('ic_no') ? 'border-red-300 ' : 'border-gray-300 ') }}"
-                                    value="{{ (isset($profile->ic_no)) ? $profile->ic_no : '' }}" />
+                                    value="{{ (isset($staff->ic_no)) ? $staff->ic_no : '' }}" />
                             </div>
                             @error('ic_no')
                             <p class="text-red-500 text-xs italic mt-4">
@@ -200,7 +174,7 @@
                             <div class="mt-1 rounded-md shadow-sm">
                                 <input id="address1" name="address1"
                                     class="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5  {{ ($errors->get('address1') ? 'border-red-300 ' : 'border-gray-300 ') }}"
-                                    value="{{ (isset($profile->address1)) ? $profile->address1 : '' }}" />
+                                    value="{{ (isset($staff->address1)) ? $staff->address1 : '' }}" />
                                 @error('address1')
                                 <p class="text-red-500 text-xs italic mt-4">
                                     {{ $message }}
@@ -208,7 +182,7 @@
                                 @enderror
                                 <input id="address2" name="address2"
                                     class="mt-1 form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"
-                                    value="{{ (isset($profile->address2)) ? $profile->address2 : '' }}" />
+                                    value="{{ (isset($staff->address2)) ? $staff->address2 : '' }}" />
                             </div>
                         </div>
 
@@ -219,7 +193,7 @@
                             <div class="mt-1 rounded-md shadow-sm">
                                 <input id="postcode" name="postcode"
                                     class="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5  {{ ($errors->get('postcode') ? 'border-red-300 ' : 'border-gray-300 ') }}"
-                                    value="{{ (isset($profile->postcode)) ? $profile->postcode : '' }}" />
+                                    value="{{ (isset($staff->postcode)) ? $staff->postcode : '' }}" />
                             </div>
                             @error('postcode')
                             <p class="text-red-500 text-xs italic mt-4">
@@ -235,7 +209,7 @@
                             <div class="mt-1 rounded-md shadow-sm">
                                 <input id="city" name="city"
                                     class="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5 {{ ($errors->get('city') ? 'border-red-300 ' : 'border-gray-300 ') }}"
-                                    value="{{ (isset($profile->city)) ? $profile->city : '' }}" />
+                                    value="{{ (isset($staff->city)) ? $staff->city : '' }}" />
                             </div>
                             @error('city')
                             <p class="text-red-500 text-xs italic mt-4">
@@ -251,49 +225,49 @@
                             <div class="mt-1 rounded-md shadow-sm">
                                 <select id="state" name="state"
                                     class="form-select block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5 {{ ($errors->get('state') ? 'border-red-300 ' : 'border-gray-300 ') }}">
-                                    <option disabled {{ (isset($profile->state)) ? '' : 'selected' }}>- Choose State -
+                                    <option disabled {{ (isset($staff->state)) ? '' : 'selected' }}>- Choose State -
                                     </option>
                                     <option value="johor"
-                                        {{ (!$profile) ? '': (($profile->state == 'johor') ? 'selected' : '') }}>Johor
+                                        {{ (!$staff) ? '': (($staff->state == 'johor') ? 'selected' : '') }}>Johor
                                     </option>
                                     <option value="kedah"
-                                        {{ (!$profile) ? '': (($profile->state == 'kedah') ? 'selected' : '') }}>Kedah
+                                        {{ (!$staff) ? '': (($staff->state == 'kedah') ? 'selected' : '') }}>Kedah
                                     </option>
                                     <option value="kelantan"
-                                        {{ (!$profile) ? '': (($profile->state == 'kelantan') ? 'selected' : '') }}>
+                                        {{ (!$staff) ? '': (($staff->state == 'kelantan') ? 'selected' : '') }}>
                                         Kelantan</option>
                                     <option value="melaka"
-                                        {{ (!$profile) ? '': (($profile->state == 'melaka') ? 'selected' : '') }}>Melaka
+                                        {{ (!$staff) ? '': (($staff->state == 'melaka') ? 'selected' : '') }}>Melaka
                                     </option>
                                     <option value="negeri sembilan"
-                                        {{ (!$profile) ? '': (($profile->state == 'negeri sembilan') ? 'selected' : '') }}>
+                                        {{ (!$staff) ? '': (($staff->state == 'negeri sembilan') ? 'selected' : '') }}>
                                         Negeri Sembilan</option>
                                     <option value="pahang"
-                                        {{ (!$profile) ? '': (($profile->state == 'pahang') ? 'selected' : '') }}>Pahang
+                                        {{ (!$staff) ? '': (($staff->state == 'pahang') ? 'selected' : '') }}>Pahang
                                     </option>
                                     <option value="perak"
-                                        {{ (!$profile) ? '': (($profile->state == 'perak') ? 'selected' : '') }}>Perak
+                                        {{ (!$staff) ? '': (($staff->state == 'perak') ? 'selected' : '') }}>Perak
                                     </option>
                                     <option value="perlis"
-                                        {{ (!$profile) ? '': (($profile->state == 'perlis') ? 'selected' : '') }}>Perlis
+                                        {{ (!$staff) ? '': (($staff->state == 'perlis') ? 'selected' : '') }}>Perlis
                                     </option>
                                     <option value="pulau pinang"
-                                        {{ (!$profile) ? '': (($profile->state == 'pulau pinang') ? 'selected' : '') }}>
+                                        {{ (!$staff) ? '': (($staff->state == 'pulau pinang') ? 'selected' : '') }}>
                                         Pulau Pinang</option>
                                     <option value="sabah"
-                                        {{ (!$profile) ? '': (($profile->state == 'sabah') ? 'selected' : '') }}>Sabah
+                                        {{ (!$staff) ? '': (($staff->state == 'sabah') ? 'selected' : '') }}>Sabah
                                     </option>
                                     <option value="sarawak"
-                                        {{ (!$profile) ? '': (($profile->state == 'sarawak') ? 'selected' : '') }}>
+                                        {{ (!$staff) ? '': (($staff->state == 'sarawak') ? 'selected' : '') }}>
                                         Sarawak</option>
                                     <option value="selangor"
-                                        {{ (!$profile) ? '': (($profile->state == 'selangor') ? 'selected' : '') }}>
+                                        {{ (!$staff) ? '': (($staff->state == 'selangor') ? 'selected' : '') }}>
                                         Selangor</option>
                                     <option value="terengganu"
-                                        {{ (!$profile) ? '': (($profile->state == 'terengganu') ? 'selected' : '') }}>
+                                        {{ (!$staff) ? '': (($staff->state == 'terengganu') ? 'selected' : '') }}>
                                         Terengganu</option>
                                     <option value="wp kuala lumpur"
-                                        {{ (!$profile) ? '': (($profile->state == 'wp kuala lumpur') ? 'selected' : '') }}>
+                                        {{ (!$staff) ? '': (($staff->state == 'wp kuala lumpur') ? 'selected' : '') }}>
                                         WP Kuala Lumpur</option>
                                 </select>
                             </div>
@@ -312,18 +286,24 @@
                             Human Resources Information
                         </h3>
                         <p class="mt-1 text-sm leading-5 text-gray-500">
-                            This information is generated by the system.
+                            This information need to be fill by HR for system generated all other information.
                         </p>
                     </div>
                     <div class="mt-4 grid grid-cols-1 row-gap-6 col-gap-4 sm:grid-cols-6 border-t border-gray-200 pt-4">
                         <div class="sm:col-span-3">
-                            <label for="start_date" class="block text-sm font-medium leading-5 text-gray-700">
+                            <label for="start_work" class="block text-sm font-medium leading-5 text-gray-700">
                                 Start working date
                             </label>
                             <div class="mt-1 rounded-md shadow-sm">
-                                <input id="start_date" name="start_date"
-                                    class="form-input block w-full transition duration-150 bg-gray-300 ease-in-out sm:text-sm sm:leading-5"
-                                    value="{{ (!$profile || !$profile->start_work) ? '' : $profile->start_work->format('d F Y') }}" readonly />
+                                <input type="text" class="hidden" name="id" value="{{ $staff->id }}">
+                                <input id="start_work" name="start_work" type="date"
+                                    class="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5 {{ ($errors->get('start_work') ? 'border-red-300 ' : 'border-gray-300 ') }}"
+                                    value="{{ (!$staff->start_work) ? '' : $staff->start_work->format('Y-m-d') }}" />
+                                @error('start_work')
+                                <p class="text-red-500 text-xs italic mt-4">
+                                    {{ $message }}
+                                </p>
+                                @enderror
                             </div>
                         </div>
 
@@ -334,7 +314,7 @@
                             <div class="mt-1 rounded-md shadow-sm">
                                 <input id="service_period" name="service_period"
                                     class="form-input block w-full transition duration-150 bg-gray-300 ease-in-out sm:text-sm sm:leading-5"
-                                    value="{{ (!$profile || !$profile->start_work) ? '' : rtrim($profile->start_work->diffForHumans(['parts' => 4]), "ago") }}" readonly />
+                                    value="{{ (!$staff->start_work) ? '' : rtrim($staff->start_work->diffForHumans(['parts' => 4]), "ago") }}" disabled />
                             </div>
                         </div>
 
@@ -392,10 +372,9 @@
                                     {{-- end info --}}
                                 </label>
                                 <div class="mt-1 relative rounded-md shadow-sm">
-                                    <input id="price"
-                                        class="form-input block w-full pr-12 bg-gray-300 sm:text-sm sm:leading-5" placeholder="0"
-                                        value="{{ (!$profile || $profile->staff_leave->isEmpty()) ? '' : floatval($profile->staff_leave->where('year',now()->format('Y'))[0]->AL) . ' / ' . floatval($profile->staff_leave->where('year',now()->format('Y'))[0]->leave) }}" 
-                                        readonly />
+                                    <input id="AL" name="AL"
+                                        class="form-input block w-full pr-12 sm:text-sm sm:leading-5"
+                                        value="{{ ($leave->isEmpty()) ? '' : floatval($leave[0]->AL) }}"  />
                                     <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                                         <span class="text-gray-500 sm:text-sm sm:leading-5">
                                             Days
@@ -451,9 +430,9 @@
                                     {{-- end info --}}
                                 </label>
                                 <div class="mt-1 relative rounded-md shadow-sm">
-                                    <input id="price"
-                                        class="form-input block w-full pr-12 bg-gray-300 sm:text-sm sm:leading-5" placeholder="0"
-                                        value="{{ (!$profile || $profile->staff_leave->isEmpty()) ? '' : floatval($profile->staff_leave->where('year',now()->format('Y'))[0]->MC) . ' / 28 @ 60' }}" readonly />
+                                    <input id="MC" name="MC"
+                                        class="form-input block w-full pr-12 sm:text-sm sm:leading-5"
+                                        value="{{ ($leave->isEmpty()) ? '' : floatval($leave[0]->MC) }}" />
                                     <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                                         <span class="text-gray-500 sm:text-sm sm:leading-5">
                                             Days
@@ -467,9 +446,9 @@
                                     Emergency
                                 </label>
                                 <div class="mt-1 relative rounded-md shadow-sm">
-                                    <input id="price"
-                                        class="form-input block w-full pr-12 bg-gray-300 sm:text-sm sm:leading-5" placeholder="0"
-                                        value="{{ (!$profile || $profile->staff_leave->isEmpty()) ? '' : floatval($profile->staff_leave->where('year',now()->format('Y'))[0]->EL) }}" readonly />
+                                    <input id="EL" name="EL"
+                                        class="form-input block w-full pr-12 sm:text-sm sm:leading-5"
+                                        value="{{ ($leave->isEmpty()) ? '' : floatval($leave[0]->EL) }}" />
                                     <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                                         <span class="text-gray-500 sm:text-sm sm:leading-5">
                                             Days
@@ -483,9 +462,9 @@
                                     Unpaid
                                 </label>
                                 <div class="mt-1 relative rounded-md shadow-sm">
-                                    <input id="price"
-                                        class="form-input block w-full pr-12 bg-gray-300 sm:text-sm sm:leading-5" placeholder="0"
-                                        value="{{ (!$profile || $profile->staff_leave->isEmpty()) ? '' : floatval($profile->staff_leave->where('year',now()->format('Y'))[0]->UP) }}" readonly />
+                                    <input id="UP" name="UP"
+                                        class="form-input block w-full pr-12 sm:text-sm sm:leading-5"
+                                        value="{{ ($leave->isEmpty()) ? '' : floatval($leave[0]->UP) }}" />
                                     <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                                         <span class="text-gray-500 sm:text-sm sm:leading-5">
                                             Days
@@ -499,9 +478,9 @@
                                     Compassionate
                                 </label>
                                 <div class="mt-1 relative rounded-md shadow-sm">
-                                    <input id="price"
-                                        class="form-input block w-full pr-12 bg-gray-300 sm:text-sm sm:leading-5" placeholder="0"
-                                        value="{{ (!$profile || $profile->staff_leave->isEmpty()) ? '' : floatval($profile->staff_leave->where('year',now()->format('Y'))[0]->CL) }}" readonly />
+                                    <input id="CL" name="CL"
+                                        class="form-input block w-full pr-12 sm:text-sm sm:leading-5"
+                                        value="{{ ($leave->isEmpty()) ? '' : floatval($leave[0]->CL) }}" />
                                     <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                                         <span class="text-gray-500 sm:text-sm sm:leading-5">
                                             Days
@@ -515,9 +494,9 @@
                                     Maternity / Paternity
                                 </label>
                                 <div class="mt-1 relative rounded-md shadow-sm">
-                                    <input id="price"
-                                        class="form-input block w-full pr-12 bg-gray-300 sm:text-sm sm:leading-5" placeholder="0"
-                                        value="{{ (!$profile || $profile->staff_leave->isEmpty()) ? '' : floatval($profile->staff_leave->where('year',now()->format('Y'))[0]->MP) }}" readonly />
+                                    <input id="MP" name="MP"
+                                        class="form-input block w-full pr-12 sm:text-sm sm:leading-5"
+                                        value="{{ ($leave->isEmpty()) ? '' : floatval($leave[0]->MP) }}" />
                                     <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                                         <span class="text-gray-500 sm:text-sm sm:leading-5">
                                             Days
@@ -531,9 +510,9 @@
                                     Unrecorded
                                 </label>
                                 <div class="mt-1 relative rounded-md shadow-sm">
-                                    <input id="price"
-                                        class="form-input block w-full pr-12 bg-gray-300 sm:text-sm sm:leading-5" placeholder="0"
-                                        value="{{ (!$profile || $profile->staff_leave->isEmpty()) ? '' : floatval($profile->staff_leave->where('year',now()->format('Y'))[0]->X) }}" readonly />
+                                    <input id="X" name="X"
+                                        class="form-input block w-full pr-12 sm:text-sm sm:leading-5"
+                                        value="{{ ($leave->isEmpty()) ? '' : floatval($leave[0]->X) }}" />
                                     <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                                         <span class="text-gray-500 sm:text-sm sm:leading-5">
                                             Days
@@ -560,9 +539,9 @@
                                             RM
                                         </span>
                                     </div>
-                                    <input id="price"
-                                        class="form-input block w-full pl-12 pr-12 bg-gray-300 sm:text-sm sm:leading-5"
-                                        placeholder="0.00" value="{{ (!$profile || $profile->staff_leave->isEmpty()) ? '' : number_format($profile->staff_claim->where('year',now()->format('Y'))[0]->CLM,2) }}" readonly />
+                                    <input id="CLM" name="CLM"
+                                        class="form-input block w-full pl-12 pr-12 sm:text-sm sm:leading-5"
+                                        placeholder="0.00" value="{{ ($leave->isEmpty()) ? '' : $claim[0]->CLM }}" />
                                 </div>
                             </div>
 
@@ -576,9 +555,9 @@
                                             RM
                                         </span>
                                     </div>
-                                    <input id="price"
-                                        class="form-input block w-full pl-12 pr-12 bg-gray-300 sm:text-sm sm:leading-5"
-                                        placeholder="0.00" value="{{ (!$profile || $profile->staff_leave->isEmpty()) ? '' : number_format($profile->staff_claim->where('year',now()->format('Y'))[0]->CLO,2) }}" readonly />
+                                    <input id="CLO" name="CLO"
+                                        class="form-input block w-full pl-12 pr-12sm:text-sm sm:leading-5"
+                                        placeholder="0.00" value="{{ ($leave->isEmpty()) ? '' : $claim[0]->CLO }}"/>
                                 </div>
                             </div>
                         </div>
@@ -619,37 +598,6 @@
         @endif
 
     });
-
-</script>
-<script>
-    $("#avatar_button").click(function () {
-        $("input[id='avatar']").click();
-    });
-
-    $("input[id='avatar']").on('change', function () {
-        readURL(this);
-        checkFiles();
-    });
-
-    var checkFiles = function () {
-        if (document.getElementById("avatar").files.length > 0) {
-            document.getElementById('avatar_default').classList.add('hidden');
-            document.getElementById('avatar_uploaded').classList.remove('hidden');
-        } else {
-            document.getElementById('avatar_default').classList.remove('hidden');
-            document.getElementById('avatar_uploaded').classList.add('hidden');
-        }
-    }
-
-    var readURL = function (input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $('#avatar_uploaded').attr('src', e.target.result);
-            }
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
 
 </script>
 @endpush

@@ -111,7 +111,10 @@
 
                     @yield('content')
 
-                    @include('layouts.navbar.footer')
+                    @if(\Request::is('register') || \Request::is('login') || \Request::is('password/reset') )
+                    @else
+                        @include('layouts.navbar.footer')
+                    @endif
     
         @if(is_null(auth()->user()))
         @else

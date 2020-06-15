@@ -35,7 +35,7 @@
                 <div class="mt-2 md:flex md:items-center md:justify-between">
                     <div class="flex-1 min-w-0">
                         <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:leading-9 sm:truncate">
-                            Roles
+                            User Access Level
                         </h2>
                     </div>
                 </div>
@@ -45,19 +45,19 @@
                 <div class="py-4">
                     <div class="bg-white shadow overflow-hidden sm:rounded-md">
                         <ul>
-                            @foreach ($roles as $role)
+                            @foreach ($uals as $ual)
                             @if ($loop->first)
                             <li>
                                 @else
                             <li class="border-t border-gray-200">
                                 @endif
-                                <a href="{{ route('roles.show', $role->id) }}"
+                                <a href="{{ route('ual.show', $ual->id) }}"
                                     class="block hover:bg-gray-200 focus:outline-none focus:bg-gray-200 transition duration-150 ease-in-out">
                                     <div class="px-4 py-4 flex items-center sm:px-6">
                                         <div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
                                             <div>
                                                 <div class="text-sm leading-5 font-medium text-indigo-600 truncate">
-                                                    {{ $role->title }}
+                                                    {{ $ual->title }}
                                                 </div>
                                                 <div class="mt-2 flex">
                                                     <div class="flex items-center text-sm leading-5 text-gray-500">
@@ -68,17 +68,27 @@
                                                                 clip-rule="evenodd" fill-rule="evenodd"></path>
                                                         </svg>
                                                         <span>
-                                                            {{ $role->description }}
+                                                            {{ $ual->description }}
                                                         </span>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="mt-4 flex-shrink-0 sm:mt-0">
                                                 <div class="flex">
-                                                    @foreach ($role->user as $users)
-                                                    <span class="hint--bottom hint--rounded" aria-label="{{ $users->name }}">
-                                                        <img class="inline-block h-6 w-6 rounded-full text-white shadow-solid" src="{{ asset('img/avatar/').'/'.$users->avatar }}" alt="" />
-                                                    </span>
+                                                    @foreach ($ual->user as $users)
+                                                        <span class="hint--bottom hint--rounded" aria-label="{{ $users->name }}">
+                                                            @if($users->avatar == NULL)
+                                                                <span class="inline-block h-6 w-6 rounded-full overflow-hidden bg-gray-500 shadow-solid">
+                                                                    <svg class="h-6 w-6 text-gray-300" fill="currentColor"
+                                                                        viewBox="0 0 24 24">
+                                                                        <path
+                                                                            d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                                                                    </svg>
+                                                                </span>
+                                                            @else
+                                                                <img class="inline-block h-6 w-6 rounded-full text-white shadow-solid" src="{{ asset('storage/Avatar/' . $users->avatar) }}">
+                                                            @endif
+                                                        </span>
                                                     @endforeach
                                                 </div>
                                             </div>
@@ -97,7 +107,7 @@
 
                             <li
                                 class="border-t border-gray-200 font-medium bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline-indigo focus:border-indigo-700 active:bg-indigo-700 transition duration-150 ease-in-out">
-                                <a href="{{ route('roles.create') }}"
+                                <a href="{{ route('ual.create') }}"
                                     class="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out">
                                     <div class="px-4 py-4 flex items-center sm:px-6">
                                         <div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
@@ -110,7 +120,7 @@
                                                                 d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
                                                                 clip-rule="evenodd" fill-rule="evenodd"></path>
                                                         </svg>
-                                                        Add New Role
+                                                        Add New User Access Level
                                                     </span>
                                                 </div>
                                             </div>

@@ -111,8 +111,8 @@
                                             class="mt-1 text-sm leading-5 text-gray-900 grid grid-cols-2 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-32">
                                             <div class="max-w-xs rounded-md shadow-sm">
                                                 <select id="type" name="type" class="block form-select transition duration-150 ease-in-out sm:text-sm sm:leading-5">
-                                                    <option value="medical" {{ old('type') == 'medical' ? 'selected':'' }}>Medical Claim</option>
-                                                    <option value="other" {{ old('type') == 'other' ? 'selected':'' }}>Others</option>
+                                                    <option value="CLM" {{ old('type') == 'CLM' ? 'selected':'' }}>Medical Claim</option>
+                                                    <option value="CLO" {{ old('type') == 'CLO' ? 'selected':'' }}>Others</option>
                                                 </select>
                                             </div>
                                         </div>
