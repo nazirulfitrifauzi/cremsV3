@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAttendancesTable extends Migration
+class CreateStaffInfoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,16 @@ class CreateAttendancesTable extends Migration
      */
     public function up()
     {
-        Schema::create('attendances', function (Blueprint $table) {
+        Schema::create('staff_info', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id');
-            $table->integer('status')->default(0);
-            $table->string('location');
-            $table->string('remarks')->nullable();
-            $table->dateTime('login_at');
+            $table->bigInteger('ic_no');
+            $table->string('address1');
+            $table->string('address2')->nullable();
+            $table->string('postcode');
+            $table->string('city');
+            $table->string('state');
+            $table->date('start_work')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -32,6 +35,6 @@ class CreateAttendancesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('attendances');
+        Schema::dropIfExists('staff_info');
     }
 }

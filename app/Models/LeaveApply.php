@@ -4,17 +4,17 @@ namespace App\Models;
 
 use App\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Kyslik\ColumnSortable\Sortable;
 
-class Leave extends Model
+class LeaveApply extends Model
 {
     use Sortable;
+    use SoftDeletes;
 
-    protected $table = 'leaves';
+    protected $table = 'staff_leave_apply';
 
     protected $guarded = [];
-
-    public $timestamps = false;
 
     protected $dates = [
         'start',

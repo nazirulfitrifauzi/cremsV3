@@ -1,63 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="h-screen flex overflow-hidden bg-gray-100" x-data="{ sidebarOpen: false }"
-    @keydown.window.escape="sidebarOpen = false">
-    <!-- Off-canvas menu for mobile -->
-    <div x-show="sidebarOpen" class="md:hidden" style="display: none;">
-        <div class="fixed inset-0 flex z-40">
-            <div @click="sidebarOpen = false" x-show="sidebarOpen"
-                x-description="Off-canvas menu overlay, show/hide based on off-canvas menu state."
-                x-transition:enter="transition-opacity ease-linear duration-300" x-transition:enter-start="opacity-0"
-                x-transition:enter-end="opacity-100" x-transition:leave="transition-opacity ease-linear duration-300"
-                x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0"
-                style="display: none;">
-                <div class="absolute inset-0 bg-gray-600 opacity-75"></div>
-            </div>
-            <div x-show="sidebarOpen" x-description="Off-canvas menu, show/hide based on off-canvas menu state."
-                x-transition:enter="transition ease-in-out duration-300 transform"
-                x-transition:enter-start="-translate-x-full" x-transition:enter-end="translate-x-0"
-                x-transition:leave="transition ease-in-out duration-300 transform"
-                x-transition:leave-start="translate-x-0" x-transition:leave-end="-translate-x-full"
-                class="relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 bg-gray-800" style="display: none;">
-                <div class="absolute top-0 right-0 -mr-14 p-1">
-                    <button x-show="sidebarOpen" @click="sidebarOpen = false"
-                        class="flex items-center justify-center h-12 w-12 rounded-full focus:outline-none focus:bg-gray-600"
-                        aria-label="Close sidebar" style="display: none;">
-                        <svg class="h-6 w-6 text-white" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M6 18L18 6M6 6l12 12"></path>
-                        </svg>
-                    </button>
-                </div>
-                <div class="flex-shrink-0 flex items-center px-4 justify-center">
-                    <img class="h-8 w-auto" src="{{ asset('img/logo/csc.png') }}" alt="Workflow">
-                </div>
-                <div class="mt-5 flex-1 h-0 overflow-y-auto">
-                    @include('layouts.sidebar.mobile')
-                </div>
-            </div>
-            <div class="flex-shrink-0 w-14">
-                <!-- Dummy element to force sidebar to shrink to fit close icon -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Static sidebar for desktop -->
-    <div class="hidden md:flex md:flex-shrink-0">
-        <div class="flex flex-col w-64">
-            <div class="flex items-center h-16 flex-shrink-0 px-4 bg-gray-900 justify-center">
-                <img class="h-8 w-auto" src="{{ asset('img/logo/csc.png') }}" alt="Workflow">
-            </div>
-            <div class="h-0 flex-1 flex flex-col overflow-y-auto">
-                <!-- Sidebar component, swap this element with another sidebar if you like -->
-                @include('layouts.sidebar.desktop')
-            </div>
-        </div>
-    </div>
-    <div class="flex flex-col w-0 flex-1 overflow-hidden">
-        @include('layouts.navbar.topbar')
-
         <main class="flex-1 relative z-0 overflow-y-auto py-6 focus:outline-none" tabindex="0" x-data=""
             x-init="$el.focus()">
 
@@ -92,22 +35,21 @@
                 <!-- breadcrumbs -->
                 <div>
                     <nav class="hidden sm:flex items-center text-sm leading-5 font-medium">
-                        <a href="{{ route('roles.index') }}"
-                            class="text-gray-500 hover:text-gray-700 transition duration-150 ease-in-out">Roles</a>
+                        <a href="{{ route('ual.index') }}"
+                            class="text-gray-500 hover:text-gray-700 transition duration-150 ease-in-out">User Access Level</a>
                         <svg class="flex-shrink-0 mx-2 h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd"
                                 d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
                                 clip-rule="evenodd" />
                         </svg>
-                        <a href="" class="text-gray-500 hover:text-gray-700 transition duration-150 ease-in-out">Add
-                            Role</a>
+                        <a href="" class="text-gray-500 hover:text-gray-700 transition duration-150 ease-in-out">Add User Access Level</a>
                     </nav>
                 </div>
                 <!-- title -->
                 <div class="mt-2 md:flex md:items-center md:justify-between">
                     <div class="flex-1 min-w-0">
                         <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:leading-9 sm:truncate">
-                            Add Role
+                            Add New User Access Level
                         </h2>
                     </div>
                 </div>
@@ -115,7 +57,7 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
                 <!-- Replace with your content -->
                 <div class="py-4">
-                    <form action="{{ route('roles.store') }}" method="POST">
+                    <form action="{{ route('ual.store') }}" method="POST">
                         @csrf
 
                         <div class="bg-white shadow overflow-hidden  sm:rounded-lg">
@@ -170,7 +112,17 @@
                                             Human Resources
                                         </dt>
                                         <dd
-                                            class="mt-1 text-sm leading-5 text-gray-900 grid grid-cols-2 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-32">
+                                            class="mt-1 text-sm leading-5 text-gray-900 grid grid-cols-2 sm:mt-0 sm:grid sm:grid-cols-3 lg:grid-cols-4 sm:col-gap-40 row-gap-4">
+                                            <div class="relative flex items-start">
+                                                <div class="absolute flex items-center h-5">
+                                                    <input id="staff" name="staff" type="checkbox" value="1"
+                                                        class="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out" />
+                                                </div>
+                                                <div class="pl-8 text-sm leading-5">
+                                                    <label for="staff"
+                                                        class="font-medium text-gray-700">Staff</label>
+                                                </div>
+                                            </div>
                                             <div class="relative flex items-start">
                                                 <div class="absolute flex items-center h-5">
                                                     <input id="attendances" name="attendances" type="checkbox" value="1"
@@ -204,17 +156,17 @@
                                     <div
                                         class="mt-8 sm:mt-0 sm:grid sm:grid-cols-4 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
                                         <dt class="text-sm leading-5 font-medium text-gray-500">
-                                            Roles
+                                            User Access Level
                                         </dt>
                                         <dd
-                                            class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-32">
+                                            class="mt-1 text-sm leading-5 text-gray-900 col-span-3 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-32">
                                             <div class="relative flex items-start">
                                                 <div class="absolute flex items-center h-5">
-                                                    <input id="roles" name="roles" type="checkbox" value="1"
+                                                    <input id="ual" name="ual" type="checkbox" value="1"
                                                         class="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out" />
                                                 </div>
                                                 <div class="pl-8 text-sm leading-5">
-                                                    <label for="roles" class="font-medium text-gray-700">Roles</label>
+                                                    <label for="ual" class="font-medium text-gray-700">User Access Level</label>
                                                 </div>
                                             </div>
                                         </dd>
@@ -245,9 +197,6 @@
                 <!-- /End replace -->
             </div>
         </main>
-
-    </div>
-</div>
 @endsection
 
 @push('js')

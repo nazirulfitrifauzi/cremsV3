@@ -57,8 +57,10 @@ class LoginController extends Controller
         // and active is not 1. If so, override the default error message.
         if (!$user) {
             return back()->with('error', "This email is not exist in our database.");
-        } elseif ($user && \Hash::check($request->password, $user->password) && $user->active != 1) {
+        } elseif ($user && \Hash::check($request->password, $user->password) && $user->active == 0) {
             return back()->with('error', "This account has not been activated yet.");
+        } elseif ($user && \Hash::check($request->password, $user->password) && $user->active == 2) {
+            return back()->with('error', "This account has been rejected by admin.");
         } elseif ($user && ($request->password != $user->password)) {
             return back()->with('error', "These credentials do not match our records.");
         }

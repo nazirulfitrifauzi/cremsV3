@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAttendancesTable extends Migration
+class CreateStaffClaimTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateAttendancesTable extends Migration
      */
     public function up()
     {
-        Schema::create('attendances', function (Blueprint $table) {
+        Schema::create('staff_claim', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id');
-            $table->integer('status')->default(0);
-            $table->string('location');
-            $table->string('remarks')->nullable();
-            $table->dateTime('login_at');
+            $table->decimal('CLM', 18, 2)->default(0.00);
+            $table->decimal('CLO', 18, 2)->default(0.00);
+            $table->string('year', 4)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -32,6 +31,6 @@ class CreateAttendancesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('attendances');
+        Schema::dropIfExists('staff_claim');
     }
 }

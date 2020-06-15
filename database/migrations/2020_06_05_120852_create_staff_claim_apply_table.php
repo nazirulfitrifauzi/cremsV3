@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAttendancesTable extends Migration
+class CreateStaffClaimApplyTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateAttendancesTable extends Migration
      */
     public function up()
     {
-        Schema::create('attendances', function (Blueprint $table) {
+        Schema::create('staff_claim_apply', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id');
+            $table->string('type');
+            $table->decimal('amount', 18, 2);
+            $table->string('attachment');
             $table->integer('status')->default(0);
-            $table->string('location');
-            $table->string('remarks')->nullable();
-            $table->dateTime('login_at');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -32,6 +32,6 @@ class CreateAttendancesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('attendances');
+        Schema::dropIfExists('staff_claim_apply');
     }
 }
