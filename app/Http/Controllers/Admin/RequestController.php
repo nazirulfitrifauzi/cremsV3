@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Role;
+use App\Models\UAL;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -12,20 +12,20 @@ class RequestController extends Controller
     public function index()
     {
         $user = User::sortable()->where('active', 0)->simplePaginate(10);
-        $role = Role::all();
+        $ual = UAL::all();
 
-        return view('pages.request.index', compact('user', 'role'));
+        return view('pages.request.index', compact('user', 'ual'));
     }
 
     public function update($id, Request $request)
     {
         $active = $request->get('active');
         $role = $request->get('role');
-        $active = $request->get('active');
+        $ual = $request->get('ual');
 
         if ($active == 1) {
             $name = User::find($id)->name;
-            User::whereId($id)->update(['role' => $role, 'active' => $active]);
+            User::whereId($id)->update(['ual' => $ual, 'role' => $role, 'active' => $active]);
 
             session()->flash('status', $name . "'s request has been approved.");
         } elseif ($active == 2) {

@@ -32,27 +32,26 @@
         <!-- breadcrumbs -->
         <div>
             <nav class="hidden sm:flex items-center text-sm leading-5 font-medium">
-                <a href="{{ route('roles.index') }}"
-                    class="text-gray-500 hover:text-gray-700 transition duration-150 ease-in-out">Roles</a>
+                <a href="{{ route('ual.index') }}"
+                    class="text-gray-500 hover:text-gray-700 transition duration-150 ease-in-out">User Access Level</a>
                 <svg class="flex-shrink-0 mx-2 h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd"
                         d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
                         clip-rule="evenodd" />
                 </svg>
-                <a href="" class="text-gray-500 hover:text-gray-700 transition duration-150 ease-in-out">Role
-                    Detail</a>
+                <a href="" class="text-gray-500 hover:text-gray-700 transition duration-150 ease-in-out">User Access Level Detail</a>
             </nav>
         </div>
         <!-- title -->
         <div class="mt-2 grid grid-cols-2 md:flex md:items-center md:justify-between">
             <div class="flex-1 min-w-0">
                 <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:leading-9 sm:truncate">
-                    Role Details
+                    User Access Level Detail
                 </h2>
             </div>
             <div class="text-right sm:hidden">
                 <span class="inline-flex rounded-md shadow-sm">
-                    <a href="{{ route('roles.index') }}" type="button"
+                    <a href="{{ route('ual.index') }}" type="button"
                         class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150">
                         <svg class="-ml-1 mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
                             <path
@@ -68,17 +67,17 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
         <!-- Replace with your content -->
         <div class="py-4">
-            <form action="{{ route('roles.update', $role->id) }}" method="POST">
+            <form action="{{ route('ual.update', $ual->id) }}" method="POST">
                 @csrf
                 @method('PATCH')
 
                 <div class="bg-white shadow overflow-hidden  sm:rounded-lg">
                     <div class="px-4 py-5 border-b border-gray-200 sm:px-6">
                         <h3 class="text-lg leading-6 font-medium text-gray-900">
-                            {{ $role->title }}
+                            {{ $ual->title }}
                         </h3>
                         <p class="mt-1 max-w-2xl text-sm leading-5 text-gray-500">
-                            {{ $role->description }}
+                            {{ $ual->description }}
                         </p>
                     </div>
                     <div class="px-4 py-5 sm:p-0">
@@ -93,7 +92,7 @@
                                         <div class="absolute flex items-center h-5">
                                             <input id="staff" name="staff" type="checkbox" value="1"
                                                 class="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
-                                                {{ ($role->staff == 1) ? 'checked' : '' }} />
+                                                {{ ($ual->staff == 1) ? 'checked' : '' }} />
                                         </div>
                                         <div class="pl-8 text-sm leading-5">
                                             <label for="staff"
@@ -104,7 +103,7 @@
                                         <div class="absolute flex items-center h-5">
                                             <input id="attendances" name="attendances" type="checkbox" value="1"
                                                 class="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
-                                                {{ ($role->attendances == 1) ? 'checked' : '' }} />
+                                                {{ ($ual->attendances == 1) ? 'checked' : '' }} />
                                         </div>
                                         <div class="pl-8 text-sm leading-5">
                                             <label for="attendances"
@@ -115,7 +114,7 @@
                                         <div class="absolute flex items-center h-5">
                                             <input id="leaves" name="leaves" type="checkbox" value="1"
                                                 class="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
-                                                {{ ($role->leaves == 1) ? 'checked' : '' }} />
+                                                {{ ($ual->leaves == 1) ? 'checked' : '' }} />
                                         </div>
                                         <div class="pl-8 text-sm leading-5">
                                             <label for="leaves" class="font-medium text-gray-700">Leaves</label>
@@ -125,7 +124,7 @@
                                         <div class="absolute flex items-center h-5">
                                             <input id="claims" name="claims" type="checkbox" value="1"
                                                 class="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
-                                                {{ ($role->claims == 1) ? 'checked' : '' }} />
+                                                {{ ($ual->claims == 1) ? 'checked' : '' }} />
                                         </div>
                                         <div class="pl-8 text-sm leading-5">
                                             <label for="claims" class="font-medium text-gray-700">Claims</label>
@@ -136,18 +135,18 @@
                             <div
                                 class="mt-8 sm:mt-0 sm:grid sm:grid-cols-4 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
                                 <dt class="text-sm leading-5 font-medium text-gray-500">
-                                    Roles
+                                    User Access Level
                                 </dt>
                                 <dd
-                                    class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-32">
+                                    class="mt-1 text-sm leading-5 text-gray-900 col-span-3 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-32">
                                     <div class="relative flex items-start">
                                         <div class="absolute flex items-center h-5">
-                                            <input id="roles" name="roles" type="checkbox" value="1"
+                                            <input id="ual" name="ual" type="checkbox" value="1"
                                                 class="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
-                                                {{ ($role->roles == 1) ? 'checked' : '' }} />
+                                                {{ ($ual->ual == 1) ? 'checked' : '' }} />
                                         </div>
                                         <div class="pl-8 text-sm leading-5">
-                                            <label for="roles" class="font-medium text-gray-700">Roles</label>
+                                            <label for="ual" class="font-medium text-gray-700">User Access Level</label>
                                         </div>
                                     </div>
                                 </dd>
@@ -216,11 +215,11 @@
                         </div>
                         <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                             <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
-                                Delete Roles
+                                Delete User Access Level
                             </h3>
                             <div class="mt-2">
                                 <p class="text-sm leading-5 text-gray-500">
-                                    Are you sure you want to delete tis role? This role data will be
+                                    Are you sure you want to delete this User Access Level? This User Access Level data will be
                                     permanently removed from our servers forever. This action cannot be undone.
                                 </p>
                             </div>
@@ -228,12 +227,12 @@
                     </div>
                     <div class="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
                         <span class="flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
-                            <a href="{{ route('roles.destroy',$role->id) }}" type="button"
+                            <a href="{{ route('ual.destroy',$ual->id) }}" type="button"
                                 class="inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-red-600 text-base leading-6 font-medium text-white shadow-sm hover:bg-red-500 focus:outline-none focus:border-red-700 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5"
-                                onclick="event.preventDefault(); document.getElementById('deleterole-form').submit();">
+                                onclick="event.preventDefault(); document.getElementById('deleteual-form').submit();">
                                 Delete!
                             </a>
-                            <form id="deleterole-form" action="{{ route('roles.destroy',$role->id) }}" method="POST"
+                            <form id="deleteual-form" action="{{ route('ual.destroy',$ual->id) }}" method="POST"
                                 class="hidden">
                                 @csrf
                                 @method('DELETE')
@@ -280,18 +279,18 @@
 
     });
 
-    function deleteRole(id) {
+    function deleteUal(id) {
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         $.ajax({
             type: 'POST',
 
-            url: "{{ url('roles')}}" + '/' + id,
+            url: "{{ url('ual')}}" + '/' + id,
             data: {
                 '_token': CSRF_TOKEN,
                 '_method': 'DELETE'
             },
             success: function () {
-                window.location = "{{ url('roles')}}";
+                window.location = "{{ url('ual')}}";
             }
         });
     }

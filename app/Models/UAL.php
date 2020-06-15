@@ -6,16 +6,16 @@ use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Role extends Model
+class UAL extends Model
 {
     use SoftDeletes;
 
-    protected $table = 'roles';
+    protected $table = 'ual';
 
     protected $guarded = [];
 
     public function user()
     {
-        return $this->hasMany(User::class, 'role', 'id');
+        return $this->hasMany(User::class, 'ual', 'id');
     }
 }

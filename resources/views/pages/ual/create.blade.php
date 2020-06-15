@@ -35,22 +35,21 @@
                 <!-- breadcrumbs -->
                 <div>
                     <nav class="hidden sm:flex items-center text-sm leading-5 font-medium">
-                        <a href="{{ route('roles.index') }}"
-                            class="text-gray-500 hover:text-gray-700 transition duration-150 ease-in-out">Roles</a>
+                        <a href="{{ route('ual.index') }}"
+                            class="text-gray-500 hover:text-gray-700 transition duration-150 ease-in-out">User Access Level</a>
                         <svg class="flex-shrink-0 mx-2 h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd"
                                 d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
                                 clip-rule="evenodd" />
                         </svg>
-                        <a href="" class="text-gray-500 hover:text-gray-700 transition duration-150 ease-in-out">Add
-                            Role</a>
+                        <a href="" class="text-gray-500 hover:text-gray-700 transition duration-150 ease-in-out">Add User Access Level</a>
                     </nav>
                 </div>
                 <!-- title -->
                 <div class="mt-2 md:flex md:items-center md:justify-between">
                     <div class="flex-1 min-w-0">
                         <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:leading-9 sm:truncate">
-                            Add Role
+                            Add New User Access Level
                         </h2>
                     </div>
                 </div>
@@ -58,7 +57,7 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
                 <!-- Replace with your content -->
                 <div class="py-4">
-                    <form action="{{ route('roles.store') }}" method="POST">
+                    <form action="{{ route('ual.store') }}" method="POST">
                         @csrf
 
                         <div class="bg-white shadow overflow-hidden  sm:rounded-lg">
@@ -113,7 +112,17 @@
                                             Human Resources
                                         </dt>
                                         <dd
-                                            class="mt-1 text-sm leading-5 text-gray-900 grid grid-cols-2 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-32">
+                                            class="mt-1 text-sm leading-5 text-gray-900 grid grid-cols-2 sm:mt-0 sm:grid sm:grid-cols-3 lg:grid-cols-4 sm:col-gap-40 row-gap-4">
+                                            <div class="relative flex items-start">
+                                                <div class="absolute flex items-center h-5">
+                                                    <input id="staff" name="staff" type="checkbox" value="1"
+                                                        class="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out" />
+                                                </div>
+                                                <div class="pl-8 text-sm leading-5">
+                                                    <label for="staff"
+                                                        class="font-medium text-gray-700">Staff</label>
+                                                </div>
+                                            </div>
                                             <div class="relative flex items-start">
                                                 <div class="absolute flex items-center h-5">
                                                     <input id="attendances" name="attendances" type="checkbox" value="1"
@@ -147,17 +156,17 @@
                                     <div
                                         class="mt-8 sm:mt-0 sm:grid sm:grid-cols-4 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
                                         <dt class="text-sm leading-5 font-medium text-gray-500">
-                                            Roles
+                                            User Access Level
                                         </dt>
                                         <dd
-                                            class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-32">
+                                            class="mt-1 text-sm leading-5 text-gray-900 col-span-3 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-32">
                                             <div class="relative flex items-start">
                                                 <div class="absolute flex items-center h-5">
-                                                    <input id="roles" name="roles" type="checkbox" value="1"
+                                                    <input id="ual" name="ual" type="checkbox" value="1"
                                                         class="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out" />
                                                 </div>
                                                 <div class="pl-8 text-sm leading-5">
-                                                    <label for="roles" class="font-medium text-gray-700">Roles</label>
+                                                    <label for="ual" class="font-medium text-gray-700">User Access Level</label>
                                                 </div>
                                             </div>
                                         </dd>

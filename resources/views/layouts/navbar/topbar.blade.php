@@ -11,8 +11,6 @@
         <div class="flex-1 flex items-center ">
             <div class="w-full flex md:ml-0">
                 <h3 class="hidden sm:block text-xl font-semibold text-gray-600">
-                    {{-- Hello
-                    {{ ucwords(strtolower(implode(' ', array_slice(explode(' ', auth()->user()->name), 0, 2)))) }} --}}
                     CSC Request and Error Management System
                 </h3>
                 <h3 class="block sm:hidden text-xl font-semibold text-gray-600">
@@ -32,7 +30,7 @@
                         id="user-menu" aria-label="User menu" aria-haspopup="true" x-bind:aria-expanded="open"
                         aria-expanded="false">
                         @if(auth()->user()->avatar == NULL)
-                            <span class="h-8 2-8 rounded-full overflow-hidden bg-gray-500">
+                            <span class="h-8 w-8 rounded-full overflow-hidden bg-gray-500">
                                 <svg class="h-full w-full text-gray-300" fill="currentColor"
                                     viewBox="0 0 24 24">
                                     <path

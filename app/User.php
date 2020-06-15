@@ -5,8 +5,9 @@ namespace App;
 use App\Models\Attendance;
 use App\Models\Claim;
 use App\Models\Leave;
-use App\Models\Profile;
 use App\Models\Role;
+use App\Models\StaffInfo;
+use App\Models\UAL;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -37,11 +38,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public $sortable = ['name', 'email', 'role', 'avatar', 'active'];
+    public $sortable = ['name', 'email', 'ual', 'role', 'phone', 'avatar', 'active'];
 
-    public function profiles()
+    public function staff_info()
     {
-        return $this->hasOne(Profile::class, 'user_id', 'id');
+        return $this->hasOne(StaffInfo::class, 'user_id', 'id');
     }
 
     public function attendances()
@@ -59,8 +60,8 @@ class User extends Authenticatable
         return $this->hasMany(Claim::class, 'user_id', 'id');
     }
 
-    public function roles()
+    public function uals()
     {
-        return $this->belongsTo(Role::class, 'role', 'id');
+        return $this->belongsTo(UAL::class, 'ual', 'id');
     }
 }

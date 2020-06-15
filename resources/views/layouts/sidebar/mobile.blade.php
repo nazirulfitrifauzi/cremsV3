@@ -40,16 +40,20 @@
                 </a>
 
                 <div x-show="open">
+                    <a href="{{ route('staff.index') }}"
+                        class="{{ (auth()->user()->uals->staff == 1) ? 'block' : 'hidden' }} mt-1 group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-300 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150 {{ (\Request::is('hr/staff')) ? 'text-white bg-gray-900' : 'text-gray-300 hover:text-white hover:bg-gray-700 focus:text-white' }}">
+                        <span class="ml-10">Staff</span>
+                    </a>
                     <a href="{{ route('attendances.index') }}"
-                        class="mt-1 group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-300 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150 {{ (\Request::is('hr/attendance')) ? 'text-white bg-gray-900' : 'text-gray-300 hover:text-white hover:bg-gray-700 focus:text-white' }}">
+                        class="{{ (auth()->user()->uals->attendances == 1) ? 'block' : 'hidden' }} mt-1 group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-300 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150 {{ (\Request::is('hr/attendance')) ? 'text-white bg-gray-900' : 'text-gray-300 hover:text-white hover:bg-gray-700 focus:text-white' }}">
                         <span class="ml-10">Attendances</span>
                     </a>
                     <a href="{{ route('leave.index') }}"
-                        class="mt-1 group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-300 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150 {{ (\Request::is('hr/leave*')) ? 'text-white bg-gray-900' : 'text-gray-300 hover:text-white hover:bg-gray-700 focus:text-white' }}">
+                        class="{{ (auth()->user()->uals->leaves == 1) ? 'block' : 'hidden' }} mt-1 group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-300 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150 {{ (\Request::is('hr/leave*')) ? 'text-white bg-gray-900' : 'text-gray-300 hover:text-white hover:bg-gray-700 focus:text-white' }}">
                         <span class="ml-10">Leaves</span>
                     </a>
                     <a href="{{ route('claim.index') }}"
-                        class="mt-1 group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-300 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150 {{ (\Request::is('hr/claim*')) ? 'text-white bg-gray-900' : 'text-gray-300 hover:text-white hover:bg-gray-700 focus:text-white' }}">
+                        class="{{ (auth()->user()->uals->claims == 1) ? 'block' : 'hidden' }} mt-1 group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-300 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150 {{ (\Request::is('hr/claim*')) ? 'text-white bg-gray-900' : 'text-gray-300 hover:text-white hover:bg-gray-700 focus:text-white' }}">
                         <span class="ml-10">Claims</span>
                     </a>
                 </div>
@@ -57,7 +61,7 @@
         </div>
     </nav>
 </div>
-<div class="{{ (auth()->user()->roles->roles == 1) ? 'block' : 'hidden' }} flex-shrink-0 flex bg-gray-700 p-4">
+<div class="{{ (auth()->user()->uals->ual == 1) ? 'block' : 'hidden' }} flex-shrink-0 flex bg-gray-700 p-4">
     <div class="my-2 flex-1">
         <h3 class="group flex items-center px-3 text-xs leading-4 font-semibold text-gray-400 uppercase tracking-wider" id="projects-headline">
             <svg class="mr-3 h-6 w-6 text-gray-300 group-hover:text-gray-300 group-focus:text-gray-300 transition ease-in-out duration-150"
@@ -67,9 +71,9 @@
             SYSTEM SETTING
         </h3>
         <div class="mt-1" role="group" aria-labelledby="projects-headline">
-            <a href="{{ route('roles.index') }}"
-                class="mt-1 group flex items-center px-3 py-2 text-sm leading-5 font-medium rounded-md focus:outline-none focus:bg-gray-700 transition ease-in-out duration-150 {{ (\Request::is('roles') || \Request::is('roles/*')) ? 'text-white bg-gray-900' : 'text-gray-600 hover:text-white hover:bg-gray-800 focus:text-white' }}">
-                Roles
+            <a href="{{ route('ual.index') }}"
+                class="mt-1 group flex items-center px-3 py-2 text-sm leading-5 font-medium rounded-md focus:outline-none focus:bg-gray-700 transition ease-in-out duration-150 {{ (\Request::is('ual') || \Request::is('ual/*')) ? 'text-white bg-gray-900' : 'text-gray-600 hover:text-white hover:bg-gray-800 focus:text-white' }}">
+                User Access Level
             </a>
             <a href="{{ route('request.index') }}"
                 class="mt-1 group flex items-center px-3 py-2 text-sm leading-5 font-medium rounded-md focus:outline-none focus:bg-gray-700 transition ease-in-out duration-150 {{ (\Request::is('new-request') || \Request::is('new-request/*')) ? 'text-white bg-gray-900' : 'text-gray-600 hover:text-white hover:bg-gray-800 focus:text-white' }}">

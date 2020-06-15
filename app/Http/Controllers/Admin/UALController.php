@@ -3,22 +3,22 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Role;
+use App\Models\UAL;
 use Illuminate\Http\Request;
 
-class RolesController extends Controller
+class UALController extends Controller
 {
 
     public function index()
     {
-        $roles = Role::all();
+        $uals = UAL::all();
 
-        return view('pages.roles.index', compact('roles'));
+        return view('pages.ual.index', compact('uals'));
     }
 
     public function create()
     {
-        return view('pages.roles.create');
+        return view('pages.ual.create');
     }
 
     public function store(Request $request)
@@ -28,25 +28,25 @@ class RolesController extends Controller
             'description' => 'required|string|max:50',
         ]);
 
-        $role = new Role([
+        $ual = new UAL([
             'title'             => $request->get('title'),
             'description'       => $request->get('description'),
             'staff'             => ($request->missing('staff')) ? 0 : 1,
             'attendances'       => ($request->missing('attendances')) ? 0 : 1,
             'leaves'            => ($request->missing('leaves')) ? 0 : 1,
             'claims'            => ($request->missing('claims')) ? 0 : 1,
-            'roles'             => ($request->missing('roles')) ? 0 : 1,
+            'ual'               => ($request->missing('ual')) ? 0 : 1,
         ]);
 
-        $role->save();
+        $ual->save();
 
-        return redirect()->route('roles.index')->withStatus('Role successfully created.');
+        return redirect()->route('ual.index')->withStatus('User Access Level successfully created.');
     }
 
     public function show($id)
     {
-        $role = Role::whereId($id)->first();
-        return view('pages.roles.show', compact('role'));
+        $ual = UAL::whereId($id)->first();
+        return view('pages.ual.show', compact('ual'));
     }
 
     public function edit($id)
@@ -56,20 +56,20 @@ class RolesController extends Controller
 
     public function update(Request $request, $id)
     {
-        Role::whereId($id)->update([
+        UAL::whereId($id)->update([
             'staff'             => ($request->missing('staff')) ? 0 : 1,
             'attendances'       => ($request->missing('attendances')) ? 0 : 1,
             'leaves'            => ($request->missing('leaves')) ? 0 : 1,
             'claims'            => ($request->missing('claims')) ? 0 : 1,
-            'roles'             => ($request->missing('roles')) ? 0 : 1,
+            'ual'               => ($request->missing('ual')) ? 0 : 1,
         ]);
 
-        return redirect()->route('roles.index')->withStatus('Role successfully updated');
+        return redirect()->route('ual.index')->withStatus('User Access Level successfully updated');
     }
 
     public function destroy($id)
     {
-        Role::whereId($id)->delete();
-        return redirect()->route('roles.index')->withStatus('Role successfully deleted');
+        UAL::whereId($id)->delete();
+        return redirect()->route('ual.index')->withStatus('User Access Level successfully deleted');
     }
 }

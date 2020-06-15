@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateClaimTable extends Migration
+class CreateStaffClaimTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateClaimTable extends Migration
      */
     public function up()
     {
-        Schema::create('claims', function (Blueprint $table) {
+        Schema::create('staff_claim', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id');
-            $table->string('type');
-            $table->decimal('amount', 18, 2);
-            $table->string('attachment');
-            $table->integer('status')->default(0);
+            $table->decimal('CLM', 18, 2)->default(0.00);
+            $table->decimal('CLO', 18, 2)->default(0.00);
+            $table->string('year', 4)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -32,6 +31,6 @@ class CreateClaimTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('claims');
+        Schema::dropIfExists('staff_claim');
     }
 }

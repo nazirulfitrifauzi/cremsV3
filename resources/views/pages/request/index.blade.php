@@ -93,7 +93,11 @@
                                         </th>
                                         <th
                                             class="px-6 py-3 border-b border-gray-200 bg-gray-300 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
-                                            @sortablelink('role','Roles')
+                                            UAL
+                                        </th>
+                                        <th
+                                            class="px-6 py-3 border-b border-gray-200 bg-gray-300 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
+                                            Role
                                         </th>
                                         <th
                                             class="px-6 py-3 border-b border-gray-200 bg-gray-300 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
@@ -116,11 +120,23 @@
                                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-600">
                                                 <div class="mt-1 sm:mt-0 sm:col-span-2">
                                                     <div class="max-w-lg rounded-md shadow-sm sm:max-w-xs">
-                                                        <select id="role" name="role" class="block form-select w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5">
-                                                            <option selected="true" disabled="disabled">Choose Role</option>  
-                                                            @foreach ($role as $roles)
-                                                                <option value="{{ $roles->id }}">{{ $roles->title }}</option>
+                                                        <select id="ual" name="ual" class="block form-select w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+                                                            <option selected="true" disabled="disabled">Choose UAL</option>  
+                                                            @foreach ($ual as $uals)
+                                                                <option value="{{ $uals->id }}">{{ $uals->title }}</option>
                                                             @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-600">
+                                                <div class="mt-1 sm:mt-0 sm:col-span-2">
+                                                    <div class="max-w-lg rounded-md shadow-sm sm:max-w-xs">
+                                                        <select id="role" name="role" class="block form-select w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+                                                            <option selected="true" disabled="disabled">Choose Role</option>
+                                                            <option value="1">System Admin</option>
+                                                            <option value="2">Staff</option>
+                                                            <option value="3">Client</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -166,6 +182,7 @@
                             <div 
                                 class="fixed bottom-0 inset-x-0 px-4 pb-6 sm:inset-0 sm:p-0 sm:flex sm:items-center sm:justify-center"
                                 x-show="approve_isOpen()"
+                                x-cloak
                             >
                                 <div class="fixed inset-0 transition-opacity"
                                     x-show="approve_isOpen()"
@@ -223,6 +240,7 @@
                             <div 
                                 class="fixed bottom-0 inset-x-0 px-4 pb-4 sm:inset-0 sm:flex sm:items-center sm:justify-center"
                                 x-show="reject_isOpen()"
+                                x-cloak
                             >
                                 <div class="fixed inset-0 transition-opacity"
                                     x-show="reject_isOpen()"
@@ -312,6 +330,7 @@
                 document.getElementById("app_desc").innerHTML = "" + name + " is requesting access to this system on " + moment(date).format('DD/MM/YYYY');
                 document.getElementById("app_button").onclick = function() {
                     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+                    var ual = document.getElementById('ual').value;
                     var role = document.getElementById('role').value;
 
                     $.ajax({
@@ -320,6 +339,7 @@
                         data: {
                             '_token' : CSRF_TOKEN, 
                             '_method' : 'PATCH',
+                            'ual' : ual,
                             'role' : role,
                             'active' : 1
                         },
