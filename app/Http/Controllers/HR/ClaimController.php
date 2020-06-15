@@ -12,13 +12,20 @@ class ClaimController extends Controller
 {
     public function index()
     {
-        if (auth()->user()->role == '1' || auth()->user()->role == '2') { // admin or hr
-            $claim = ClaimApply::sortable()->simplePaginate(10);
-        } else { // staff
-            $claim = ClaimApply::sortable()->where('user_id', auth()->user()->id)->simplePaginate(10);
-        }
+        if (auth()->user()->ual == '1') { // sys admin
 
-        return view('pages.hr.claims.index', compact('claim'));
+            $claim = ClaimApply::sortable()->simplePaginate(10);
+            return view('pages.hr.claims.index', compact('claim'));
+        } elseif (auth()->user()->ual == '2') { // hr
+
+            $claim = ClaimApply::sortable()->simplePaginate(10);
+            $personal = ClaimApply::sortable()->where('user_id', auth()->user()->id)->simplePaginate(10);
+            return view('pages.hr.claims.index', compact('claim', 'personal'));
+        } else {
+
+            $claim = ClaimApply::sortable()->where('user_id', auth()->user()->id)->simplePaginate(10);
+            return view('pages.hr.claims.index', compact('claim'));
+        }
     }
 
     public function create()

@@ -12,13 +12,20 @@ class LeaveController extends Controller
 {
     public function index()
     {
-        if (auth()->user()->role == '1' || auth()->user()->role == '2') { // admin or hr
-            $leave = LeaveApply::sortable()->simplePaginate(10);
-        } else { // staff
-            $leave = LeaveApply::sortable()->where('user_id', auth()->user()->id)->simplePaginate(10);
-        }
+        if (auth()->user()->ual == '1') { // sys admin
 
-        return view('pages.hr.leaves.index', compact('leave'));
+            $leave = LeaveApply::sortable()->simplePaginate(10);
+            return view('pages.hr.leaves.index', compact('leave'));
+        } elseif (auth()->user()->ual == '2') { // hr
+
+            $leave = LeaveApply::sortable()->simplePaginate(10);
+            $personal = LeaveApply::sortable()->where('user_id', auth()->user()->id)->simplePaginate(10);
+            return view('pages.hr.leaves.index', compact('leave', 'personal'));
+        } else {
+
+            $leave = LeaveApply::sortable()->where('user_id', auth()->user()->id)->simplePaginate(10);
+            return view('pages.hr.leaves.index', compact('leave'));
+        }
     }
 
     public function create()
