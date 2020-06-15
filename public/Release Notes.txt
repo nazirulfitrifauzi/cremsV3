@@ -1,19 +1,21 @@
-v1.1.0 (3 June 2020)
+v1.1.0 (15 June 2020)
     [Add]
-    - Roles Module
-    - Staff Leave Module
-
-    [Feature]
-    - PWA Support
+    - Add New Request module for Admin
+    - Add Claim Module
+    - Add Profile Module
+    - Add Dashboard
     
 v1.0.1 (17 May 2020)
     [Add]
     - Add Default Avatar Image
+    - Roles Module
+    - Staff Leave Module
 
     [Update]
     - Update CSC Logo for CREMS
     - Update button style in Webpage
     - Update Default Dashboard for CREMS
+    - PWA Support
 
 v1.0.0 (16 May 2020)
     [Add]
